@@ -1,8 +1,9 @@
-package com.ayantsoft.trms.resourcing.service;
+package com.ayantsoft.trms.resourcing.dao;
 
 import com.ayantsoft.trms.resourcing.model.Candidate;
 
-public interface CandidateService {
-
+public interface CandidateDao {
+	
 	public void addCandidate(Candidate candidate);
+	
 }

@@ -1,51 +1,50 @@
-package com.ayantsoft.trms.resourcing.model;
+package com.ayantsoft.trms.resourcing.dto;
 
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import com.ayantsoft.trms.resourcing.model.Visa;
 
-
-@Document(collection = "candidate")
-public class Candidate implements Serializable {
-
-	/**
-	 * serialVersionUID
-	 */
-	private static final long serialVersionUID = -8619889826974320835L;
+public class CandidateDto implements Serializable {
 	
-	@Id
-	private String id;
+	/**
+	 *serialVersionUID 
+	 */
+	private static final long serialVersionUID = 3148171291945933939L;
+	
+	
 	private String candidateId;
 	private String candidateName;
-	private String employeeId;
-	private String supervisorId;
 	private String payType;
 	private String email;
 	private Double payRate;
 	private String altEmail;
 	private Date graduationDate;
 	private String workMobile;
-	private List<String> skills;
+	private String currentLocation;
 	private String phone;
-	private String enrollmentStatus;
 	private List<Visa> visas;
 	private String recruitmentSource;
-	private Date nextFollowupDate;
+	private List<String> skills;
 	private Double courseFee;
+	private String enrollmentStatus;
+	private Date nextFollowUpDate;
 	private String recruitmentService;
-	private Date createdDate;
-	private String currentLocation;
 	private List<String> prefferedLocations;
 	
 	
-	public String getId() {
-		return id;
+	public String getCandidateId() {
+		return candidateId;
 	}
-	public void setId(String id) {
-		this.id = id;
+	public void setCandidateId(String candidateId) {
+		this.candidateId = candidateId;
+	}
+	public String getCandidateName() {
+		return candidateName;
+	}
+	public void setCandidateName(String candidateName) {
+		this.candidateName = candidateName;
 	}
 	public String getPayType() {
 		return payType;
@@ -83,23 +82,17 @@ public class Candidate implements Serializable {
 	public void setWorkMobile(String workMobile) {
 		this.workMobile = workMobile;
 	}
-	public List<String> getSkills() {
-		return skills;
+	public String getCurrentLocation() {
+		return currentLocation;
 	}
-	public void setSkills(List<String> skills) {
-		this.skills = skills;
+	public void setCurrentLocation(String currentLocation) {
+		this.currentLocation = currentLocation;
 	}
 	public String getPhone() {
 		return phone;
 	}
 	public void setPhone(String phone) {
 		this.phone = phone;
-	}
-	public String getEnrollmentStatus() {
-		return enrollmentStatus;
-	}
-	public void setEnrollmentStatus(String enrollmentStatus) {
-		this.enrollmentStatus = enrollmentStatus;
 	}
 	public List<Visa> getVisas() {
 		return visas;
@@ -113,11 +106,29 @@ public class Candidate implements Serializable {
 	public void setRecruitmentSource(String recruitmentSource) {
 		this.recruitmentSource = recruitmentSource;
 	}
+	public List<String> getSkills() {
+		return skills;
+	}
+	public void setSkills(List<String> skills) {
+		this.skills = skills;
+	}
 	public Double getCourseFee() {
 		return courseFee;
 	}
 	public void setCourseFee(Double courseFee) {
 		this.courseFee = courseFee;
+	}
+	public String getEnrollmentStatus() {
+		return enrollmentStatus;
+	}
+	public void setEnrollmentStatus(String enrollmentStatus) {
+		this.enrollmentStatus = enrollmentStatus;
+	}
+	public Date getNextFollowUpDate() {
+		return nextFollowUpDate;
+	}
+	public void setNextFollowUpDate(Date nextFollowUpDate) {
+		this.nextFollowUpDate = nextFollowUpDate;
 	}
 	public String getRecruitmentService() {
 		return recruitmentService;
@@ -125,52 +136,10 @@ public class Candidate implements Serializable {
 	public void setRecruitmentService(String recruitmentService) {
 		this.recruitmentService = recruitmentService;
 	}
-	public String getCurrentLocation() {
-		return currentLocation;
-	}
-	public void setCurrentLocation(String currentLocation) {
-		this.currentLocation = currentLocation;
-	}
 	public List<String> getPrefferedLocations() {
 		return prefferedLocations;
 	}
 	public void setPrefferedLocations(List<String> prefferedLocations) {
 		this.prefferedLocations = prefferedLocations;
 	}
-	public String getCandidateId() {
-		return candidateId;
-	}
-	public void setCandidateId(String candidateId) {
-		this.candidateId = candidateId;
-	}
-	public String getCandidateName() {
-		return candidateName;
-	}
-	public void setCandidateName(String candidateName) {
-		this.candidateName = candidateName;
-	}
-	public Date getNextFollowupDate() {
-		return nextFollowupDate;
-	}
-	public void setNextFollowupDate(Date nextFollowupDate) {
-		this.nextFollowupDate = nextFollowupDate;
-	}
-	public String getEmployeeId() {
-		return employeeId;
-	}
-	public void setEmployeeId(String employeeId) {
-		this.employeeId = employeeId;
-	}
-	public String getSupervisorId() {
-		return supervisorId;
-	}
-	public void setSupervisorId(String supervisorId) {
-		this.supervisorId = supervisorId;
-	}
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}	
 }

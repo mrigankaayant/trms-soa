@@ -1,75 +1,96 @@
 package com.ayantsoft.trms.resourcing.controller;
 
+import java.io.Serializable;
+import java.util.Date;
 
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ayantsoft.trms.resourcing.dto.CandidateDto;
 import com.ayantsoft.trms.resourcing.model.Candidate;
 import com.ayantsoft.trms.resourcing.service.CandidateService;
 
-import java.util.List;
-
-
 @RestController
 @RequestMapping("/resourcing/candidate")
-public class CandidateController {
+public class CandidateController implements Serializable {
 
-    @Autowired
+    /**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 8516412036040851076L;
+	
+	
+	@Autowired
     private CandidateService candidateService;
 
-    @RequestMapping(method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    @PreAuthorize("hasAuthority('COMPANY_READ')")
-    public @ResponseBody
-    List<Candidate> getAll() {
-    	System.out.println();
-        return candidateService.getAll();
+    @PostMapping("/create")
+    public ResponseEntity<?> addCandidate(@RequestBody CandidateDto candidateDto,HttpServletRequest request){
+    	HttpStatus httpStatus = null; 
+    	try{
+    		
+    		Candidate candidate = new Candidate();
+    		candidate.setCandidateName(candidateDto.getCandidateName());
+    		candidate.setWorkMobile(candidateDto.getWorkMobile());
+    		candidate.setEmail(candidateDto.getEmail());
+    		
+    		if(candidateDto.getPayType() != null){
+    			candidate.setPayType(candidateDto.getPayType());
+    		}
+    		if(candidateDto.getPayRate() != null){
+    			candidate.setPayRate(candidateDto.getPayRate());
+    		}
+    		if(candidateDto.getAltEmail() != null){
+    			candidate.setAltEmail(candidateDto.getAltEmail());
+    		}
+    		if(candidateDto.getGraduationDate() != null){
+    			candidate.setGraduationDate(candidateDto.getGraduationDate());
+    		}
+    		if(candidateDto.getCurrentLocation() != null){
+    			candidate.setCurrentLocation(candidateDto.getCurrentLocation());
+    		}
+    		if(candidateDto.getPhone() != null){
+    			candidate.setPhone(candidateDto.getPhone());
+    		}
+    		if(candidateDto.getVisas() != null && candidateDto.getVisas().size()>0){
+    			candidate.setVisas(candidateDto.getVisas());
+    		}
+    		if(candidateDto.getRecruitmentSource() != null){
+    			candidate.setRecruitmentSource(candidateDto.getRecruitmentSource());
+    		}
+    		if(candidateDto.getSkills() != null && candidateDto.getSkills().size() >0){
+    			candidate.setSkills(candidateDto.getSkills());
+    		}
+    		if(candidateDto.getCourseFee() != null){
+    			candidate.setCourseFee(candidateDto.getCourseFee());
+    		}
+    		if(candidateDto.getEnrollmentStatus() != null){
+    			candidate.setEnrollmentStatus(candidateDto.getEnrollmentStatus());
+    		}
+    		if(candidateDto.getRecruitmentService() != null){
+    			candidate.setRecruitmentService(candidateDto.getRecruitmentService());
+    		}
+    		if(candidateDto.getPrefferedLocations() != null && candidateDto.getPrefferedLocations().size() >0){
+    			candidate.setPrefferedLocations(candidateDto.getPrefferedLocations());
+    		}
+    		candidate.setCreatedDate(new Date());
+    		
+    		candidateService.addCandidate(candidate);
+    		httpStatus = HttpStatus.CREATED;
+    	}catch(Exception e){
+    		e.printStackTrace();
+    		httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+    	}
+    	return new ResponseEntity<CandidateDto>(candidateDto, httpStatus);
     }
+    
+    
+    
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    @PreAuthorize("hasAuthority('COMPANY_READ')")
-    public @ResponseBody
-    Candidate get(@PathVariable Integer id) {
-        return candidateService.get(id);
-    }
-
-    @RequestMapping(value = "/filter", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public @ResponseBody
-    Candidate get(@RequestParam String name) {
-        return candidateService.get(name);
-    }
-
-    @RequestMapping(method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public ResponseEntity<?> create(@RequestBody Candidate candidate) {
-    	candidateService.create(candidate);
-        HttpHeaders headers = new HttpHeaders();
-        return new ResponseEntity<>(headers, HttpStatus.CREATED);
-    }
-
-    @RequestMapping(method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public void update(@RequestBody Candidate candidate) {
-    	candidateService.update(candidate);
-    }
-
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseStatus(value = HttpStatus.OK)
-    public void delete(@PathVariable Integer id) {
-    	candidateService.delete(id);
-    }
+    
 }
