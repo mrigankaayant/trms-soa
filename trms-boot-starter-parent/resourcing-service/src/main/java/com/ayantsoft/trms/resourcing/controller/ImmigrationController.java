@@ -14,7 +14,7 @@ import com.ayantsoft.trms.resourcing.model.Immigration;
 import com.ayantsoft.trms.resourcing.service.ImmigrationService;
 
 @RestController
-@RequestMapping("/resourcing/immigration")
+@RequestMapping(URLInfo.ROOTURL)
 public class ImmigrationController implements Serializable {
 
 	/**

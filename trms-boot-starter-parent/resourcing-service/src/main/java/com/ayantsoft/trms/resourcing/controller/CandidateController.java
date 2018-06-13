@@ -18,7 +18,7 @@ import com.ayantsoft.trms.resourcing.model.Candidate;
 import com.ayantsoft.trms.resourcing.service.CandidateService;
 
 @RestController
-@RequestMapping("/resourcing/candidate")
+@RequestMapping(URLInfo.ROOTURL)
 public class CandidateController implements Serializable {
 
     /**

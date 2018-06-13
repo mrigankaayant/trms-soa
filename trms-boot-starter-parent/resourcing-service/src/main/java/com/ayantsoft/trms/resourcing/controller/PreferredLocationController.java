@@ -15,7 +15,7 @@ import com.ayantsoft.trms.resourcing.model.Location;
 import com.ayantsoft.trms.resourcing.service.PreferredLocationService;
 
 @RestController
-@RequestMapping("/resourcing/preferredLocation")
+@RequestMapping(URLInfo.ROOTURL)
 public class PreferredLocationController implements Serializable {
 
 	/**

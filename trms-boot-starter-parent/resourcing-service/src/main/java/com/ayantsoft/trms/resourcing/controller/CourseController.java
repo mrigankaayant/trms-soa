@@ -14,7 +14,7 @@ import com.ayantsoft.trms.resourcing.model.Course;
 import com.ayantsoft.trms.resourcing.service.CourseService;
 
 @RestController
-@RequestMapping("/resourcing/course")
+@RequestMapping(URLInfo.ROOTURL)
 public class CourseController implements Serializable {
 
 	/**
