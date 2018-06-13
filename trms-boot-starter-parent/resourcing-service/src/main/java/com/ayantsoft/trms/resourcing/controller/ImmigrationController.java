@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.ayantsoft.trms.resourcing.info.URLInfo;
 import com.ayantsoft.trms.resourcing.model.Immigration;
 import com.ayantsoft.trms.resourcing.service.ImmigrationService;
 
@@ -23,7 +25,7 @@ public class ImmigrationController implements Serializable {
 	@Autowired
 	private ImmigrationService immigrationService;
 
-	@GetMapping("/list")
+	@GetMapping(URLInfo.VISALIST)
 	public ResponseEntity<?> getVises(){
 		List<Immigration> list = null;
 		HttpStatus httpStatus = null;

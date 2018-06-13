@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.ayantsoft.trms.resourcing.info.URLInfo;
 import com.ayantsoft.trms.resourcing.model.Location;
 import com.ayantsoft.trms.resourcing.service.PreferredLocationService;
 
@@ -24,7 +26,7 @@ public class PreferredLocationController implements Serializable {
 	@Autowired
 	private PreferredLocationService preferredLocationService;
 
-	@GetMapping("/list")
+	@GetMapping(URLInfo.PREFERREDLOCATIONLIST)
 	public ResponseEntity<?> getLocations(){
 		List<Location> list = null;
 		HttpStatus httpStatus = null;

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ayantsoft.trms.resourcing.dto.CandidateDto;
+import com.ayantsoft.trms.resourcing.info.URLInfo;
 import com.ayantsoft.trms.resourcing.model.Candidate;
 import com.ayantsoft.trms.resourcing.service.CandidateService;
 
@@ -29,7 +30,7 @@ public class CandidateController implements Serializable {
 	@Autowired
     private CandidateService candidateService;
 
-    @PostMapping("/create")
+    @PostMapping(URLInfo.CREATECANDIDATE)
     public ResponseEntity<?> addCandidate(@RequestBody CandidateDto candidateDto,HttpServletRequest request){
     	HttpStatus httpStatus = null; 
     	try{

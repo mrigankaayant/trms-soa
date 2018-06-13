@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.ayantsoft.trms.resourcing.info.URLInfo;
 import com.ayantsoft.trms.resourcing.model.RecruitmentSource;
 import com.ayantsoft.trms.resourcing.service.RecruitmentSourceService;
 
@@ -24,7 +26,7 @@ public class RecruitmentSourceController implements Serializable {
 	@Autowired
 	private RecruitmentSourceService recruitmentSourceService;
 
-	@GetMapping("/list")
+	@GetMapping(URLInfo.RECRUITMENTSOURCELIST)
 	public ResponseEntity<?> getRecruitmentSources(){
 		List<RecruitmentSource> list = null;
 		HttpStatus httpStatus = null;

@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.ayantsoft.trms.resourcing.info.URLInfo;
 import com.ayantsoft.trms.resourcing.model.Course;
 import com.ayantsoft.trms.resourcing.service.CourseService;
 
@@ -24,7 +26,7 @@ public class CourseController implements Serializable {
 	@Autowired
 	private CourseService courseService;
 
-	@GetMapping("/list")
+	@GetMapping(URLInfo.COURSELIST)
 	public ResponseEntity<?> getCourses(){
 		List<Course> list = null;
 		HttpStatus httpStatus = null;
