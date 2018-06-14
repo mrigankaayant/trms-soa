@@ -11,11 +11,13 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 @EnableOAuth2Client
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
 
-    private static final String RESOURCE_ID = "AUTHAPI";
+    private static final String RESOURCE_ID = "TRMSRES";
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) {
     	System.out.println("configer resource id");
         resources.resourceId(RESOURCE_ID);
     }
+    
+    
 }
