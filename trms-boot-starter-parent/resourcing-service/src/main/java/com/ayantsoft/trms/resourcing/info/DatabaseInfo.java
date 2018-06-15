@@ -10,7 +10,8 @@ public class DatabaseInfo {
 	public static final String IMMIGRATIONCOLLECTION = "immigration";
 	public static final String COURSECOLLECTION = "course";
 	public static final String PREFLOCATIONCOLLECTION = "locations";
-	public static final String RECRUITMENTSOURCE = "recruitment_source";
+	public static final String RECRUITMENTSOURCECOLLECTION = "recruitment_source";
+	public static final String PAYTYPECOLLECTION = "pay_type";
 	
 
 }

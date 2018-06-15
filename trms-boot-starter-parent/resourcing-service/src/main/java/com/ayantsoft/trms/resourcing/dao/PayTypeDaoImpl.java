@@ -6,25 +6,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 import com.ayantsoft.trms.resourcing.info.DatabaseInfo;
-import com.ayantsoft.trms.resourcing.model.RecruitmentSource;
+import com.ayantsoft.trms.resourcing.model.PayType;
 
 @Repository
-public class RecruitmentSourceDaoImpl implements RecruitmentSourceDao,Serializable {
+public class PayTypeDaoImpl implements PayTypeDao,Serializable {
 
 	/**
 	 *serialVersionUID 
 	 */
-	private static final long serialVersionUID = -2124210551287214005L;
-
+	private static final long serialVersionUID = -4370321867598809315L;
+	
 	@Autowired
 	private MongoTemplate mongoTemplate;
 	
-
 	@Override
-	public List<RecruitmentSource> list() {
-		List<RecruitmentSource> list = null;
+	public List<PayType> list() {
+		List<PayType> list = null;
 		try{
-			list = mongoTemplate.findAll(RecruitmentSource.class,DatabaseInfo.RECRUITMENTSOURCECOLLECTION);
+			list = mongoTemplate.findAll(PayType.class,DatabaseInfo.PAYTYPECOLLECTION);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

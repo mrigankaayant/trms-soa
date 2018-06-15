@@ -1,8 +1,8 @@
 package com.ayantsoft.trms.resourcing.controller;
 
 import java.io.Serializable;
+import java.security.Principal;
 import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.ayantsoft.trms.resourcing.dto.CandidateDto;
 import com.ayantsoft.trms.resourcing.info.URLInfo;
 import com.ayantsoft.trms.resourcing.model.Candidate;
@@ -82,6 +81,10 @@ public class CandidateController implements Serializable {
     			candidate.setPrefferedLocations(candidateDto.getPrefferedLocations());
     		}
     		candidate.setCreatedDate(new Date());
+    		
+    		
+    		Principal principal = request.getUserPrincipal();
+			System.out.println("=============== >>>   "+principal.getName());
     		
     		candidateService.addCandidate(candidate);
     		httpStatus = HttpStatus.CREATED;

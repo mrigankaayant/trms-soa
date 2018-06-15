@@ -9,31 +9,30 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.ayantsoft.trms.resourcing.info.URLInfo;
-import com.ayantsoft.trms.resourcing.model.Course;
-import com.ayantsoft.trms.resourcing.service.CourseService;
+import com.ayantsoft.trms.resourcing.model.PayType;
+import com.ayantsoft.trms.resourcing.service.PayTypeService;
 
 @RestController
 @RequestMapping(URLInfo.ROOTURL)
-public class CourseController implements Serializable {
+public class PayTypeController implements Serializable {
 
 	/**
-	 * serialVersionUID
+	 *serialVersionUID 
 	 */
-	private static final long serialVersionUID = 4061129231253734483L;
-	
+	private static final long serialVersionUID = -309391404159288934L;
 	
 	@Autowired
-	private CourseService courseService;
-
-	@GetMapping(URLInfo.COURSELIST)
+	private PayTypeService payTypeService;
+	
+	
+	@GetMapping(URLInfo.PAYTYPELIST)
 	@PreAuthorize("hasAuthority('TRMSRES_CANDIDATE_READ')")
-	public ResponseEntity<?> getCourses(){
-		List<Course> list = null;
+	public ResponseEntity<?> getPayTypes(){
+		List<PayType> list = null;
 		HttpStatus httpStatus = null;
 		try{
-			list = courseService.list();
+			list = payTypeService.list();
 			
 			if(list == null || list.isEmpty()){
 				httpStatus = HttpStatus.NO_CONTENT;
@@ -43,7 +42,6 @@ public class CourseController implements Serializable {
 		}catch(Exception e){
 			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
-		return new ResponseEntity<List<Course>>(list, httpStatus);
+		return new ResponseEntity<List<PayType>>(list, httpStatus);
 	}
 }
-
