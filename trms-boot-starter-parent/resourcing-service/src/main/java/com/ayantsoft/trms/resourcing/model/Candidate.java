@@ -20,18 +20,18 @@ public class Candidate implements Serializable {
 	private String id;
 	private String candidateId;
 	private String candidateName;
-	private String employeeId;
-	private String supervisorId;
 	private String payType;
 	private String email;
 	private Double payRate;
 	private String altEmail;
 	private Date graduationDate;
 	private String workMobile;
-	private List<String> skills;
+	private String highestQualification;
+	private String skill;
 	private String phone;
 	private String enrollmentStatus;
-	private List<Visa> visas;
+	private String visa;
+	private Date visaStartDate;
 	private String recruitmentSource;
 	private Date nextFollowupDate;
 	private Double courseFee;
@@ -39,6 +39,8 @@ public class Candidate implements Serializable {
 	private Date createdDate;
 	private String currentLocation;
 	private List<String> prefferedLocations;
+	private CreatedBy createdBy;
+	private UpdatedBy updatedBy;
 	
 	
 	public String getId() {
@@ -83,12 +85,6 @@ public class Candidate implements Serializable {
 	public void setWorkMobile(String workMobile) {
 		this.workMobile = workMobile;
 	}
-	public List<String> getSkills() {
-		return skills;
-	}
-	public void setSkills(List<String> skills) {
-		this.skills = skills;
-	}
 	public String getPhone() {
 		return phone;
 	}
@@ -100,12 +96,6 @@ public class Candidate implements Serializable {
 	}
 	public void setEnrollmentStatus(String enrollmentStatus) {
 		this.enrollmentStatus = enrollmentStatus;
-	}
-	public List<Visa> getVisas() {
-		return visas;
-	}
-	public void setVisas(List<Visa> visas) {
-		this.visas = visas;
 	}
 	public String getRecruitmentSource() {
 		return recruitmentSource;
@@ -155,22 +145,46 @@ public class Candidate implements Serializable {
 	public void setNextFollowupDate(Date nextFollowupDate) {
 		this.nextFollowupDate = nextFollowupDate;
 	}
-	public String getEmployeeId() {
-		return employeeId;
-	}
-	public void setEmployeeId(String employeeId) {
-		this.employeeId = employeeId;
-	}
-	public String getSupervisorId() {
-		return supervisorId;
-	}
-	public void setSupervisorId(String supervisorId) {
-		this.supervisorId = supervisorId;
-	}
 	public Date getCreatedDate() {
 		return createdDate;
 	}
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
-	}	
+	}
+	public CreatedBy getCreatedBy() {
+		return createdBy;
+	}
+	public void setCreatedBy(CreatedBy createdBy) {
+		this.createdBy = createdBy;
+	}
+	public UpdatedBy getUpdatedBy() {
+		return updatedBy;
+	}
+	public void setUpdatedBy(UpdatedBy updatedBy) {
+		this.updatedBy = updatedBy;
+	}
+	public String getVisa() {
+		return visa;
+	}
+	public void setVisa(String visa) {
+		this.visa = visa;
+	}
+	public Date getVisaStartDate() {
+		return visaStartDate;
+	}
+	public void setVisaStartDate(Date visaStartDate) {
+		this.visaStartDate = visaStartDate;
+	}
+	public String getSkill() {
+		return skill;
+	}
+	public void setSkill(String skill) {
+		this.skill = skill;
+	}
+	public String getHighestQualification() {
+		return highestQualification;
+	}
+	public void setHighestQualification(String highestQualification) {
+		this.highestQualification = highestQualification;
+	}
 }

@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-import com.ayantsoft.trms.resourcing.model.Visa;
-
 public class CandidateDto implements Serializable {
 	
 	/**
@@ -23,10 +21,12 @@ public class CandidateDto implements Serializable {
 	private Date graduationDate;
 	private String workMobile;
 	private String currentLocation;
+	private String highestQualification;
 	private String phone;
-	private List<Visa> visas;
+	private String visa;
+	private Date visaStartDate;
 	private String recruitmentSource;
-	private List<String> skills;
+	private String skill;
 	private Double courseFee;
 	private String enrollmentStatus;
 	private Date nextFollowUpDate;
@@ -94,23 +94,12 @@ public class CandidateDto implements Serializable {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public List<Visa> getVisas() {
-		return visas;
-	}
-	public void setVisas(List<Visa> visas) {
-		this.visas = visas;
-	}
+	
 	public String getRecruitmentSource() {
 		return recruitmentSource;
 	}
 	public void setRecruitmentSource(String recruitmentSource) {
 		this.recruitmentSource = recruitmentSource;
-	}
-	public List<String> getSkills() {
-		return skills;
-	}
-	public void setSkills(List<String> skills) {
-		this.skills = skills;
 	}
 	public Double getCourseFee() {
 		return courseFee;
@@ -141,5 +130,29 @@ public class CandidateDto implements Serializable {
 	}
 	public void setPrefferedLocations(List<String> prefferedLocations) {
 		this.prefferedLocations = prefferedLocations;
+	}
+	public String getVisa() {
+		return visa;
+	}
+	public void setVisa(String visa) {
+		this.visa = visa;
+	}
+	public Date getVisaStartDate() {
+		return visaStartDate;
+	}
+	public void setVisaStartDate(Date visaStartDate) {
+		this.visaStartDate = visaStartDate;
+	}
+	public String getHighestQualification() {
+		return highestQualification;
+	}
+	public void setHighestQualification(String highestQualification) {
+		this.highestQualification = highestQualification;
+	}
+	public String getSkill() {
+		return skill;
+	}
+	public void setSkill(String skill) {
+		this.skill = skill;
 	}
 }

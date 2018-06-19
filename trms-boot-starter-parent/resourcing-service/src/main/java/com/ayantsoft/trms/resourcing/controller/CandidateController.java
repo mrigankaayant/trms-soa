@@ -15,88 +15,100 @@ import org.springframework.web.bind.annotation.RestController;
 import com.ayantsoft.trms.resourcing.dto.CandidateDto;
 import com.ayantsoft.trms.resourcing.info.URLInfo;
 import com.ayantsoft.trms.resourcing.model.Candidate;
+import com.ayantsoft.trms.resourcing.model.CreatedBy;
 import com.ayantsoft.trms.resourcing.service.CandidateService;
 
 @RestController
 @RequestMapping(URLInfo.ROOTURL)
 public class CandidateController implements Serializable {
 
-    /**
+	/**
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = 8516412036040851076L;
-	
-	
+
+
 	@Autowired
-    private CandidateService candidateService;
+	private CandidateService candidateService;
 
-    @PostMapping(URLInfo.CREATECANDIDATE)
-    @PreAuthorize("hasAuthority('TRMSRES_CANDIDATE_CREATE')")
-    public ResponseEntity<?> addCandidate(@RequestBody CandidateDto candidateDto,HttpServletRequest request){
-    	HttpStatus httpStatus = null; 
-    	try{
-    		
-    		Candidate candidate = new Candidate();
-    		candidate.setCandidateName(candidateDto.getCandidateName());
-    		candidate.setWorkMobile(candidateDto.getWorkMobile());
-    		candidate.setEmail(candidateDto.getEmail());
-    		
-    		if(candidateDto.getPayType() != null){
-    			candidate.setPayType(candidateDto.getPayType());
-    		}
-    		if(candidateDto.getPayRate() != null){
-    			candidate.setPayRate(candidateDto.getPayRate());
-    		}
-    		if(candidateDto.getAltEmail() != null){
-    			candidate.setAltEmail(candidateDto.getAltEmail());
-    		}
-    		if(candidateDto.getGraduationDate() != null){
-    			candidate.setGraduationDate(candidateDto.getGraduationDate());
-    		}
-    		if(candidateDto.getCurrentLocation() != null){
-    			candidate.setCurrentLocation(candidateDto.getCurrentLocation());
-    		}
-    		if(candidateDto.getPhone() != null){
-    			candidate.setPhone(candidateDto.getPhone());
-    		}
-    		if(candidateDto.getVisas() != null && candidateDto.getVisas().size()>0){
-    			candidate.setVisas(candidateDto.getVisas());
-    		}
-    		if(candidateDto.getRecruitmentSource() != null){
-    			candidate.setRecruitmentSource(candidateDto.getRecruitmentSource());
-    		}
-    		if(candidateDto.getSkills() != null && candidateDto.getSkills().size() >0){
-    			candidate.setSkills(candidateDto.getSkills());
-    		}
-    		if(candidateDto.getCourseFee() != null){
-    			candidate.setCourseFee(candidateDto.getCourseFee());
-    		}
-    		if(candidateDto.getEnrollmentStatus() != null){
-    			candidate.setEnrollmentStatus(candidateDto.getEnrollmentStatus());
-    		}
-    		if(candidateDto.getRecruitmentService() != null){
-    			candidate.setRecruitmentService(candidateDto.getRecruitmentService());
-    		}
-    		if(candidateDto.getPrefferedLocations() != null && candidateDto.getPrefferedLocations().size() >0){
-    			candidate.setPrefferedLocations(candidateDto.getPrefferedLocations());
-    		}
-    		candidate.setCreatedDate(new Date());
-    		
-    		
-    		Principal principal = request.getUserPrincipal();
-			System.out.println("=============== >>>   "+principal.getName());
-    		
-    		candidateService.addCandidate(candidate);
-    		httpStatus = HttpStatus.CREATED;
-    	}catch(Exception e){
-    		e.printStackTrace();
-    		httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
-    	}
-    	return new ResponseEntity<CandidateDto>(candidateDto, httpStatus);
-    }
-    
-    
-    
+	@PostMapping(URLInfo.CREATECANDIDATE)
+	@PreAuthorize("hasAuthority('TRMSRES_CANDIDATE_CREATE')")
+	public ResponseEntity<?> addCandidate(@RequestBody CandidateDto candidateDto,HttpServletRequest request){
+		HttpStatus httpStatus = null; 
+		try{
 
-    
+			Candidate candidate = new Candidate();
+			candidate.setCandidateName(candidateDto.getCandidateName());
+			candidate.setWorkMobile(candidateDto.getWorkMobile());
+			candidate.setEmail(candidateDto.getEmail());
+
+			if(candidateDto.getPayType() != null){
+				candidate.setPayType(candidateDto.getPayType());
+			}
+			if(candidateDto.getPayRate() != null){
+				candidate.setPayRate(candidateDto.getPayRate());
+			}
+			if(candidateDto.getAltEmail() != null){
+				candidate.setAltEmail(candidateDto.getAltEmail());
+			}
+			if(candidateDto.getGraduationDate() != null){
+				candidate.setGraduationDate(candidateDto.getGraduationDate());
+			}
+			if(candidateDto.getCurrentLocation() != null){
+				candidate.setCurrentLocation(candidateDto.getCurrentLocation());
+			}
+			if(candidateDto.getPhone() != null){
+				candidate.setPhone(candidateDto.getPhone());
+			}
+			if(candidateDto.getVisa() != null){
+				candidate.setVisa(candidateDto.getVisa());
+			}
+			if(candidateDto.getVisaStartDate() != null){
+				candidate.setVisaStartDate(candidateDto.getVisaStartDate()); 
+			}
+			if(candidateDto.getRecruitmentSource() != null){
+				candidate.setRecruitmentSource(candidateDto.getRecruitmentSource());
+			}
+			if(candidateDto.getSkill() != null ){
+				candidate.setSkill(candidateDto.getSkill());
+			}
+			if(candidateDto.getCourseFee() != null){
+				candidate.setCourseFee(candidateDto.getCourseFee());
+			}
+			if(candidateDto.getEnrollmentStatus() != null){
+				candidate.setEnrollmentStatus(candidateDto.getEnrollmentStatus());
+			}
+			if(candidateDto.getRecruitmentService() != null){
+				candidate.setRecruitmentService(candidateDto.getRecruitmentService());
+			}
+			if(candidateDto.getPrefferedLocations() != null && candidateDto.getPrefferedLocations().size() >0){
+				candidate.setPrefferedLocations(candidateDto.getPrefferedLocations());
+			}
+			candidate.setCreatedDate(new Date());
+			candidate.setNextFollowupDate(new Date());
+			
+			CreatedBy createdBy = new CreatedBy();
+			createdBy.setEmployeeId("1");
+			createdBy.setEmployeeName("Mriganka Koley");
+			createdBy.setEmployeeEmail("mriganka@gmail.com");
+			createdBy.setEmployeePhone("7679813180");
+			
+			candidate.setCreatedBy(createdBy); 
+		
+			/*Principal principal = request.getUserPrincipal();
+			System.out.println("=============== >>>   "+principal.getName());*/
+
+			candidateService.addCandidate(candidate);
+			httpStatus = HttpStatus.CREATED;
+		}catch(Exception e){
+			e.printStackTrace();
+			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<CandidateDto>(candidateDto, httpStatus);
+	}
+
+
+
+
+
 }
