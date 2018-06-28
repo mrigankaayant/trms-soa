@@ -26,7 +26,7 @@ public class EmployeeDaoImpl implements Serializable,EmployeeDao {
 		Employee employee = null;
 		try{
 			Criteria criteria = new Criteria();
-			criteria.andOperator(Criteria.where("loginCredential.username").is(username),Criteria.where("active").is(true));
+			criteria.andOperator(Criteria.where("username").is(username),Criteria.where("active").is(true));
 			Query query = new Query(criteria);
 			employee = mongoTemplate.findOne(query,Employee.class,DatabaseInfo.EMPLOYEECOLLECTION);
 		}catch(Exception e){

@@ -24,7 +24,7 @@ public class Employee implements Serializable {
 	private String remarks;
 	private String phoneExtension;
 	private String[] roles;
-	private LoginCredential loginCredential;
+	private Supervisor supervisor;
 	
 	public String getId() {
 		return id;
@@ -86,10 +86,10 @@ public class Employee implements Serializable {
 	public void setRoles(String[] roles) {
 		this.roles = roles;
 	}
-	public LoginCredential getLoginCredential() {
-		return loginCredential;
+	public Supervisor getSupervisor() {
+		return supervisor;
 	}
-	public void setLoginCredential(LoginCredential loginCredential) {
-		this.loginCredential = loginCredential;
+	public void setSupervisor(Supervisor supervisor) {
+		this.supervisor = supervisor;
 	}
 }
