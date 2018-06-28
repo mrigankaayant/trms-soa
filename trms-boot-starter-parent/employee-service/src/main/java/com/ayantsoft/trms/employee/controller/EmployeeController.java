@@ -29,13 +29,13 @@ public class EmployeeController implements Serializable {
 	private EmployeeService employeeService;
 	
 
-	@PostMapping(URLInfo.CREATEEMPLOYEE)
+	@PostMapping(URLInfo.CREATE_EMPLOYEE)
 	@PreAuthorize("hasAuthority('TRMSRES_EMPLOYEE_CREATE')")
 	public ResponseEntity<?> createEmployee(@RequestBody Employee employee){
 		HttpStatus httpStatus = null;
 		try{
 			employeeService.create(employee);
-			httpStatus = HttpStatus.OK;
+			httpStatus = HttpStatus.CREATED;
 		}catch(Exception e){
 			e.printStackTrace();
 			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
@@ -44,7 +44,7 @@ public class EmployeeController implements Serializable {
 	}
 	
 
-	@GetMapping(URLInfo.FINDEMPLOYEEBYUSERNAME)
+	@GetMapping(URLInfo.FIND_EMPLOYEE_BY_USERNAME)
 	@PreAuthorize("hasAuthority('TRMSRES_EMPLOYEE_READ')")
 	public ResponseEntity<?> getEmployee(@PathVariable("username") String username){
 		Employee employee = null;
@@ -64,7 +64,7 @@ public class EmployeeController implements Serializable {
 	}
 
 
-	@PostMapping(URLInfo.UPDATEEMPLOYEE)
+	@PostMapping(URLInfo.UPDATE_EMPLOYEE)
 	@PreAuthorize("hasAuthority('TRMSRES_EMPLOYEE_UPDATE')")
 	public ResponseEntity<?> updateEmployee(@RequestBody Employee employee){
 		HttpStatus httpStatus = null;
@@ -79,7 +79,7 @@ public class EmployeeController implements Serializable {
 	}
 
 
-	@GetMapping(URLInfo.DELETEEMPLOYEE)
+	@GetMapping(URLInfo.DELETE_EMPLOYEE)
 	@PreAuthorize("hasAuthority('TRMSRES_EMPLOYEE_DELETE')")
 	public ResponseEntity<?> deleteEmployee(@PathVariable("id") String employeeId){
 		HttpStatus httpStatus = null;
@@ -93,7 +93,7 @@ public class EmployeeController implements Serializable {
 	}
 
 
-	@GetMapping(URLInfo.LISTEMPLOYEE)
+	@GetMapping(URLInfo.LIST_EMPLOYEE)
 	@PreAuthorize("hasAuthority('TRMSRES_EMPLOYEE_LIST')")
 	public ResponseEntity<?> listEmployee(){
 		List<Employee> list = null;

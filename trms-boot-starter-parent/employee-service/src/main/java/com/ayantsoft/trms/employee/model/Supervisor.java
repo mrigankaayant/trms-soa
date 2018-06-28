@@ -2,6 +2,9 @@ package com.ayantsoft.trms.employee.model;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 public class Supervisor implements Serializable {
 
 	/**
@@ -9,10 +12,14 @@ public class Supervisor implements Serializable {
 	 */
 	private static final long serialVersionUID = 7752675493591480073L;
 
-	
+	@NotNull
 	private String supervisorId;
+	@NotNull
 	private String supervisorName;
+	@NotNull
 	private String supervisorEmail;
+	@NotNull
+	@Size(min=13, message="Invalid Phone Number")
 	private String supervisorPhone;
 	
 	
