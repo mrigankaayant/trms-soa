@@ -12,14 +12,14 @@ public class Supervisor implements Serializable {
 	 */
 	private static final long serialVersionUID = 7752675493591480073L;
 
-	@NotNull
+	@NotNull(message="Supervisor Id Required")
 	private String supervisorId;
-	@NotNull
+	@NotNull(message="Supervisor Name Required")
 	private String supervisorName;
-	@NotNull
+	@NotNull(message="Supervisor Email Required")
 	private String supervisorEmail;
 	@NotNull
-	@Size(min=13, message="Invalid Phone Number")
+	@Size(max=13, message="Invalid Phone Number")
 	private String supervisorPhone;
 	
 	

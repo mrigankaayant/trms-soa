@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
 import com.ayantsoft.trms.resourcing.dto.CandidateDto;
 import com.ayantsoft.trms.resourcing.info.URLInfo;
 import com.ayantsoft.trms.resourcing.model.Candidate;
@@ -30,6 +32,9 @@ public class CandidateController implements Serializable {
 
 	@Autowired
 	private CandidateService candidateService;
+	
+	@Autowired
+	private RestTemplate restTemplate;
 
 	@PostMapping(URLInfo.CREATECANDIDATE)
 	@PreAuthorize("hasAuthority('TRMSRES_CANDIDATE_CREATE')")

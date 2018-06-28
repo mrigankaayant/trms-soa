@@ -2,6 +2,9 @@ package com.ayantsoft.trms.employee.controller;
 
 import java.io.Serializable;
 import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +34,7 @@ public class EmployeeController implements Serializable {
 
 	@PostMapping(URLInfo.CREATE_EMPLOYEE)
 	@PreAuthorize("hasAuthority('TRMSRES_EMPLOYEE_CREATE')")
-	public ResponseEntity<?> createEmployee(@RequestBody Employee employee){
+	public ResponseEntity<?> createEmployee(@Valid @RequestBody Employee employee){
 		HttpStatus httpStatus = null;
 		try{
 			employeeService.create(employee);
@@ -66,7 +69,8 @@ public class EmployeeController implements Serializable {
 
 	@PostMapping(URLInfo.UPDATE_EMPLOYEE)
 	@PreAuthorize("hasAuthority('TRMSRES_EMPLOYEE_UPDATE')")
-	public ResponseEntity<?> updateEmployee(@RequestBody Employee employee){
+	public ResponseEntity<?> updateEmployee(@Valid @RequestBody Employee employee){
+		
 		HttpStatus httpStatus = null;
 		try{
 			employeeService.update(employee);

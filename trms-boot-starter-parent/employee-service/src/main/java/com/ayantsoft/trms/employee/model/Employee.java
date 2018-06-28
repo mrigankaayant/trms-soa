@@ -18,17 +18,17 @@ public class Employee implements Serializable {
 	
 	@Id
 	private String id;
-	@NotNull
+	@NotNull(message="Employee Id Required")
 	private String employeeId;
-	@NotNull
+	@NotNull(message="Active Required")
 	private Boolean active;
-    @NotNull
+    @NotNull(message="Must Enter Name")
 	private String name;
     @NotNull
-    @Size(min=13, message="Invalid Working Mobile Number")
+    @Size(max=13, message="Invalid Working Mobile Number")
 	private String workMobile;
     
-    @NotNull
+    @NotNull(message="Working Email Required")
 	private String workEmail;
     
 	private String linkedin;
