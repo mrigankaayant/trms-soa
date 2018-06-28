@@ -2,6 +2,9 @@ package com.ayantsoft.trms.employee.model;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -15,15 +18,22 @@ public class Employee implements Serializable {
 	
 	@Id
 	private String id;
+	@NotNull(message="Employee Id Required")
 	private String employeeId;
+	@NotNull(message="Active Required")
 	private Boolean active;
+    @NotNull(message="Must Enter Name")
 	private String name;
+    @NotNull
+    @Size(max=13, message="Invalid Working Mobile Number")
 	private String workMobile;
+    
+    @NotNull(message="Working Email Required")
 	private String workEmail;
+    
 	private String linkedin;
 	private String remarks;
 	private String phoneExtension;
-	private String[] roles;
 	private Supervisor supervisor;
 	
 	public String getId() {
@@ -79,12 +89,6 @@ public class Employee implements Serializable {
 	}
 	public void setPhoneExtension(String phoneExtension) {
 		this.phoneExtension = phoneExtension;
-	}
-	public String[] getRoles() {
-		return roles;
-	}
-	public void setRoles(String[] roles) {
-		this.roles = roles;
 	}
 	public Supervisor getSupervisor() {
 		return supervisor;
