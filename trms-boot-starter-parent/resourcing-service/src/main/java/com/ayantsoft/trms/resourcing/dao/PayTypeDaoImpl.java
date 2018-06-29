@@ -23,7 +23,7 @@ public class PayTypeDaoImpl implements PayTypeDao,Serializable {
 	public List<PayType> list() {
 		List<PayType> list = null;
 		try{
-			list = mongoTemplate.findAll(PayType.class,DatabaseInfo.PAYTYPECOLLECTION);
+			list = mongoTemplate.findAll(PayType.class,DatabaseInfo.PAYTYPE_COLLECTION);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

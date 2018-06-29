@@ -26,7 +26,7 @@ public class ImmigrationController implements Serializable {
 	@Autowired
 	private ImmigrationService immigrationService;
 
-	@GetMapping(URLInfo.VISALIST)
+	@GetMapping(URLInfo.VISA_LIST)
 	@PreAuthorize("hasAuthority('TRMSRES_CANDIDATE_READ')")
 	public ResponseEntity<?> getVises(){
 		List<Immigration> list = null;

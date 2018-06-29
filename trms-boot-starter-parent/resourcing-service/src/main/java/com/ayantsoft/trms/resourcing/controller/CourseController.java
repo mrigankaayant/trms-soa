@@ -27,7 +27,7 @@ public class CourseController implements Serializable {
 	@Autowired
 	private CourseService courseService;
 
-	@GetMapping(URLInfo.COURSELIST)
+	@GetMapping(URLInfo.COURSE_LIST)
 	@PreAuthorize("hasAuthority('TRMSRES_CANDIDATE_READ')")
 	public ResponseEntity<?> getCourses(){
 		List<Course> list = null;

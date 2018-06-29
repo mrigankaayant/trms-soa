@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
 public class CandidateDto implements Serializable {
 	
 	/**
@@ -13,13 +15,22 @@ public class CandidateDto implements Serializable {
 	
 	
 	private String candidateId;
+	
+	@NotNull(message="Name Required")
 	private String candidateName;
+	
 	private String payType;
+	
+	@NotNull(message="Email Required")
 	private String email;
+	
 	private Double payRate;
 	private String altEmail;
 	private Date graduationDate;
+	
+	@NotNull(message="Work Mobile Required")
 	private String workMobile;
+	
 	private String currentLocation;
 	private String highestQualification;
 	private String phone;

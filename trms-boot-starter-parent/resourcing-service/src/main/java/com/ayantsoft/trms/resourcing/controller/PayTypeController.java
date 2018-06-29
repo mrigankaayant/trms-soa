@@ -26,7 +26,7 @@ public class PayTypeController implements Serializable {
 	private PayTypeService payTypeService;
 	
 	
-	@GetMapping(URLInfo.PAYTYPELIST)
+	@GetMapping(URLInfo.PAY_TYPE_LIST)
 	@PreAuthorize("hasAuthority('TRMSRES_CANDIDATE_READ')")
 	public ResponseEntity<?> getPayTypes(){
 		List<PayType> list = null;

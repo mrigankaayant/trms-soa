@@ -26,7 +26,7 @@ public class ImmigrationDaoImpl implements ImmigrationDao,Serializable {
 	public List<Immigration> list() {
 		List<Immigration> list = null;
 		try{
-			list = mongoTemplate.findAll(Immigration.class,DatabaseInfo.IMMIGRATIONCOLLECTION);
+			list = mongoTemplate.findAll(Immigration.class,DatabaseInfo.IMMIGRATION_COLLECTION);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

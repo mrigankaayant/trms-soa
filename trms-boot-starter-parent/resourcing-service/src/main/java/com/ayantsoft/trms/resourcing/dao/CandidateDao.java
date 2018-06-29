@@ -4,6 +4,8 @@ import com.ayantsoft.trms.resourcing.model.Candidate;
 
 public interface CandidateDao {
 	
-	public void addCandidate(Candidate candidate);
+	void addCandidate(Candidate candidate);
+	Candidate checkEmail(String email, String id);
+	Candidate checkMobile(String phone,String id);
 	
 }

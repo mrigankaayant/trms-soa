@@ -24,7 +24,7 @@ public class RecruitmentSourceDaoImpl implements RecruitmentSourceDao,Serializab
 	public List<RecruitmentSource> list() {
 		List<RecruitmentSource> list = null;
 		try{
-			list = mongoTemplate.findAll(RecruitmentSource.class,DatabaseInfo.RECRUITMENTSOURCECOLLECTION);
+			list = mongoTemplate.findAll(RecruitmentSource.class,DatabaseInfo.RECRUITMENT_SOURCE_COLLECTION);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

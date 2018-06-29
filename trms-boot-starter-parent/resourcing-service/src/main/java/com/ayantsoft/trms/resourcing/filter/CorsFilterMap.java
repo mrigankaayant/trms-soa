@@ -1,4 +1,4 @@
-package com.ayantsoft.trms.resourcing.filter;
+/*package com.ayantsoft.trms.resourcing.filter;
 
 import org.springframework.context.annotation.Configuration;
 import javax.servlet.*;
@@ -36,4 +36,4 @@ public class CorsFilterMap implements Filter{
     public void destroy() {
 
     }
-}
+}*/

@@ -27,7 +27,7 @@ public class RecruitmentSourceController implements Serializable {
 	@Autowired
 	private RecruitmentSourceService recruitmentSourceService;
 
-	@GetMapping(URLInfo.RECRUITMENTSOURCELIST)
+	@GetMapping(URLInfo.RECRUITMENT_SOURCE_LIST)
 	@PreAuthorize("hasAuthority('TRMSRES_CANDIDATE_READ')")
 	public ResponseEntity<?> getRecruitmentSources(){
 		List<RecruitmentSource> list = null;

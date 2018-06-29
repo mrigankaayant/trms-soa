@@ -25,7 +25,7 @@ public class PreferredLocationDaoImpl implements PreferredLocationDao,Serializab
 	public List<Location> list() {
 		List<Location> list = null;
 		try{
-			list = mongoTemplate.findAll(Location.class,DatabaseInfo.PREFLOCATIONCOLLECTION);
+			list = mongoTemplate.findAll(Location.class,DatabaseInfo.PREF_LOCATION_COLLECTION);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

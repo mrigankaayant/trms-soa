@@ -23,4 +23,14 @@ public class CandidateServiceImpl implements CandidateService,Serializable {
 	public void addCandidate(Candidate candidate) {
 		candidateDao.addCandidate(candidate);
 	}
+
+	@Override
+	public Candidate checkEmail(String email, String id) {
+		return candidateDao.checkEmail(email, id);
+	}
+
+	@Override
+	public Candidate checkMobile(String phone, String id) {
+		return candidateDao.checkEmail(phone, id);
+	}
 }

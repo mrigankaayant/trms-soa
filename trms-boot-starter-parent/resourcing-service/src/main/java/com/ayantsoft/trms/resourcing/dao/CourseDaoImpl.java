@@ -25,7 +25,7 @@ public class CourseDaoImpl implements CourseDao,Serializable {
 	public List<Course> list() {
 		List<Course> list = null;
 		try{
-			list = mongoTemplate.findAll(Course.class,DatabaseInfo.COURSECOLLECTION);
+			list = mongoTemplate.findAll(Course.class,DatabaseInfo.COURSE_COLLECTION);
 		}catch(Exception e){
 			e.printStackTrace();
 		}

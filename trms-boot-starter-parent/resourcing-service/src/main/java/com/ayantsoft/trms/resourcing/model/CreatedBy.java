@@ -11,12 +11,27 @@ public class CreatedBy implements Serializable {
 
 	private String employeeId;
 	private String employeeName;
-	private String supervisorId;
-	private String supervisorName;
 	private String employeeEmail;
 	private String employeePhone;
+	
+	private String supervisorId;
+	private String supervisorName;
+	private String supervisorEmail;
+	private String supervisorPhone;
+	
 
-
+	public String getSupervisorEmail() {
+		return supervisorEmail;
+	}
+	public void setSupervisorEmail(String supervisorEmail) {
+		this.supervisorEmail = supervisorEmail;
+	}
+	public String getSupervisorPhone() {
+		return supervisorPhone;
+	}
+	public void setSupervisorPhone(String supervisorPhone) {
+		this.supervisorPhone = supervisorPhone;
+	}
 	public String getEmployeeId() {
 		return employeeId;
 	}

@@ -4,11 +4,13 @@ public class URLInfo {
 	
 	public static final String ROOTURL = "/resourcing";
 	
-	public static final String CREATECANDIDATE = "/candidate/create";
-	public static final String VISALIST = "/immigration/list";
-	public static final String COURSELIST = "/course/list";
-	public static final String PREFERREDLOCATIONLIST = "/preferredLocation/list";
-	public static final String RECRUITMENTSOURCELIST = "/recruitmentsource/list";
-	public static final String PAYTYPELIST = "/paytype/list";
+	public static final String CREATE_CANDIDATE = "/candidate/create";
+	public static final String VISA_LIST = "/immigration/list";
+	public static final String COURSE_LIST = "/course/list";
+	public static final String PREFERRED_LOCATION_LIST = "/preferredLocation/list";
+	public static final String RECRUITMENT_SOURCE_LIST = "/recruitmentsource/list";
+	public static final String PAY_TYPE_LIST = "/paytype/list";
+	public static final String CHECK_EMAIL = "/checkEmail/{email:.+}/{id}";
+	public static final String CHECK_PHONE = "/checkMobile/{mobile}/{id}";
 
 }

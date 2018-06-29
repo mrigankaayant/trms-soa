@@ -27,7 +27,7 @@ public class PreferredLocationController implements Serializable {
 	@Autowired
 	private PreferredLocationService preferredLocationService;
 
-	@GetMapping(URLInfo.PREFERREDLOCATIONLIST)
+	@GetMapping(URLInfo.PREFERRED_LOCATION_LIST)
 	@PreAuthorize("hasAuthority('TRMSRES_CANDIDATE_READ')")
 	public ResponseEntity<?> getLocations(){
 		List<Location> list = null;
