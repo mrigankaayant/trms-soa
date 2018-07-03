@@ -12,5 +12,8 @@ public class URLInfo {
 	public static final String PAY_TYPE_LIST = "/paytype/list";
 	public static final String CHECK_EMAIL = "/checkEmail/{email:.+}/{id}";
 	public static final String CHECK_PHONE = "/checkMobile/{mobile}/{id}";
+	public static final String UPLOAD_RESUME = "/upload/resume/{candidateId}/{candidateName}";
+	public static final String DOWNLOAD_RESUME = "/download/resume/{fileName}";
+	public static final String CANDIDATE_LIST = "/candidate/list";
 
 }

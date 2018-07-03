@@ -28,6 +28,11 @@ public class CourseDaoImpl implements CourseDao,Serializable {
 			list = mongoTemplate.findAll(Course.class,DatabaseInfo.COURSE_COLLECTION);
 		}catch(Exception e){
 			e.printStackTrace();
+			try{
+				throw new Exception("COURSE LIST EXCEPTION");
+			}catch(Exception e1){
+				e1.printStackTrace();
+			}
 		}
 		return list;
 	}

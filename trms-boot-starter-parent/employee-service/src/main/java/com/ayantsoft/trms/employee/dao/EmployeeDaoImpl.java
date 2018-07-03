@@ -31,6 +31,11 @@ public class EmployeeDaoImpl implements Serializable,EmployeeDao {
 			employee = mongoTemplate.findOne(query,Employee.class,DatabaseInfo.EMPLOYEECOLLECTION);
 		}catch(Exception e){
 			e.printStackTrace();
+			try{
+				throw new Exception("FIND EMPLOYEE BY USERNAME EXCEPTION ");
+			}catch(Exception e1){
+				e1.printStackTrace();
+			}
 		}
 		return employee;
 	}
@@ -42,6 +47,11 @@ public class EmployeeDaoImpl implements Serializable,EmployeeDao {
 			mongoTemplate.save(employee,DatabaseInfo.EMPLOYEECOLLECTION);
 		}catch(Exception e){
 			e.printStackTrace();
+			try{
+				throw new Exception("EMPLOYEE UPDATE EXCEPTION ");
+			}catch(Exception e1){
+				e1.printStackTrace();
+			}
 		}	
 	}
 
@@ -55,6 +65,11 @@ public class EmployeeDaoImpl implements Serializable,EmployeeDao {
 			mongoTemplate.remove(employee,DatabaseInfo.EMPLOYEECOLLECTION);
 		}catch(Exception e){
 			e.printStackTrace();
+			try{
+				throw new Exception("EMPLOYEE DELETE EXCEPTION ");
+			}catch(Exception e1){
+				e1.printStackTrace();
+			}
 		}
 	}
 
@@ -66,6 +81,11 @@ public class EmployeeDaoImpl implements Serializable,EmployeeDao {
 			list = mongoTemplate.findAll(Employee.class,DatabaseInfo.EMPLOYEECOLLECTION);
 		}catch(Exception e){
 			e.printStackTrace();
+			try{
+				throw new Exception("EMPLOYEE LIST EXCEPTION ");
+			}catch(Exception e1){
+				e1.printStackTrace();
+			}
 		}
 		return list;
 	}
@@ -77,6 +97,11 @@ public class EmployeeDaoImpl implements Serializable,EmployeeDao {
 			mongoTemplate.save(employee,DatabaseInfo.EMPLOYEECOLLECTION);
 		}catch(Exception e){
 			e.printStackTrace();
+			try{
+				throw new Exception("EMPLOYEE CREATE EXCEPTION ");
+			}catch(Exception e1){
+				e1.printStackTrace();
+			}
 		}
 		return employee;
 	}

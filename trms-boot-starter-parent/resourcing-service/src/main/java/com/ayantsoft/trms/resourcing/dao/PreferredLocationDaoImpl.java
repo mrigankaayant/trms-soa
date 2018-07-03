@@ -28,6 +28,11 @@ public class PreferredLocationDaoImpl implements PreferredLocationDao,Serializab
 			list = mongoTemplate.findAll(Location.class,DatabaseInfo.PREF_LOCATION_COLLECTION);
 		}catch(Exception e){
 			e.printStackTrace();
+			try{
+				throw new Exception("PREFERRED LOCATION LIST EXCEPTION");
+			}catch(Exception e1){
+				e1.printStackTrace();
+			}
 		}
 		return list;
 	}

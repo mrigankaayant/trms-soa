@@ -26,6 +26,11 @@ public class PayTypeDaoImpl implements PayTypeDao,Serializable {
 			list = mongoTemplate.findAll(PayType.class,DatabaseInfo.PAYTYPE_COLLECTION);
 		}catch(Exception e){
 			e.printStackTrace();
+			try{
+				throw new Exception("PAYTYPE LIST EXCEPTION");
+			}catch(Exception e1){
+				e1.printStackTrace();
+			}
 		}
 		return list;
 	}

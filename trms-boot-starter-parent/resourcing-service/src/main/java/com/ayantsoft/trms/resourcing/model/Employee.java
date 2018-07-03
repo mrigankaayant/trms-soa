@@ -23,6 +23,7 @@ public class Employee implements Serializable {
 	private String remarks;
 	private String phoneExtension;
 	private Supervisor supervisor;
+	private String[] roles;
 	
 	public String getId() {
 		return id;
@@ -84,5 +85,10 @@ public class Employee implements Serializable {
 	public void setSupervisor(Supervisor supervisor) {
 		this.supervisor = supervisor;
 	}
-
+	public String[] getRoles() {
+		return roles;
+	}
+	public void setRoles(String[] roles) {
+		this.roles = roles;
+	}
 }

@@ -4,10 +4,9 @@ import java.io.Serializable;
 import java.util.Base64;
 import java.util.Base64.Decoder;
 import java.util.Date;
-
+import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,16 +40,18 @@ public class CandidateController implements Serializable {
 
 	@Autowired
 	private EmployeeService employeeService;
+	
 
 	@PostMapping(URLInfo.CREATE_CANDIDATE)
 	@PreAuthorize("hasAuthority('TRMSRES_CANDIDATE_CREATE')")
 	public ResponseEntity<?> addCandidate(@Valid @RequestBody CandidateDto candidateDto,HttpServletRequest request){
 		HttpStatus httpStatus = null; 
+		Candidate candidate = null;
 		try{
 
 			Employee employee = employeeService.getEmployeeByUsername(request, request.getUserPrincipal().getName());
 
-			Candidate candidate = new Candidate();
+			candidate = new Candidate();
 			candidate.setCandidateName(candidateDto.getCandidateName());
 			candidate.setWorkMobile(candidateDto.getWorkMobile());
 			candidate.setEmail(candidateDto.getEmail());
@@ -118,7 +119,7 @@ public class CandidateController implements Serializable {
 			e.printStackTrace();
 			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
-		return new ResponseEntity<CandidateDto>(candidateDto, httpStatus);
+		return new ResponseEntity<Candidate>(candidate, httpStatus);
 	}
 
 
@@ -152,7 +153,6 @@ public class CandidateController implements Serializable {
 	@GetMapping(URLInfo.CHECK_PHONE)
 	@PreAuthorize("hasAuthority('TRMSRES_CANDIDATE_READ')")
 	public ResponseEntity<?> checkMobile(@PathVariable String mobile,@PathVariable String id){
-		System.out.println("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 		HttpStatus httpStatus = null; 
 		Candidate candidate = null;
 		try{
@@ -166,6 +166,47 @@ public class CandidateController implements Serializable {
 			e.printStackTrace();
 		}
 		return new ResponseEntity<Candidate>(candidate, httpStatus);
+	}
+	
+	
+	
+	@GetMapping(URLInfo.CANDIDATE_LIST)
+	@PreAuthorize("hasAuthority('TRMSRES_CANDIDATE_LIST')")
+	public ResponseEntity<?> candidateList(HttpServletRequest request){
+		HttpStatus httpStatus = null; 
+		List<Candidate> list = null;
+		try{
+			Employee employee = employeeService.getEmployeeByUsername(request, request.getUserPrincipal().getName());
+			String[] roles = employee.getRoles();
+
+			list = candidateService.list(isRole("Admin",roles),employee.getEmployeeId());
+			if(list == null){
+				httpStatus = HttpStatus.NOT_FOUND;
+			}else{
+				httpStatus = HttpStatus.OK;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return new ResponseEntity<List<Candidate>>(list, httpStatus);
+	}
+
+	
+	
+	
+	public boolean isRole(String role,String[] roles){
+		boolean hasRole = false;
+		try{
+			for(String r:roles){
+				if(r.equals(role)){
+					hasRole = true;
+					break;
+				}
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return hasRole;
 	}
 
 }

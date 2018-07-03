@@ -41,7 +41,7 @@ public class Candidate implements Serializable {
 	private List<String> prefferedLocations;
 	private CreatedBy createdBy;
 	private UpdatedBy updatedBy;
-	
+	private ResumeInfo resumeInfo;
 	
 	public String getId() {
 		return id;
@@ -186,5 +186,11 @@ public class Candidate implements Serializable {
 	}
 	public void setHighestQualification(String highestQualification) {
 		this.highestQualification = highestQualification;
+	}
+	public ResumeInfo getResumeInfo() {
+		return resumeInfo;
+	}
+	public void setResumeInfo(ResumeInfo resumeInfo) {
+		this.resumeInfo = resumeInfo;
 	}
 }

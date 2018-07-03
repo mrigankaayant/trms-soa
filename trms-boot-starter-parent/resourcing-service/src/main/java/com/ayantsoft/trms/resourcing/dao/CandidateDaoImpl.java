@@ -1,6 +1,7 @@
 package com.ayantsoft.trms.resourcing.dao;
 
 import java.io.Serializable;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -32,6 +33,11 @@ public class CandidateDaoImpl implements CandidateDao,Serializable {
 			mongoTemplate.save(candidate,DatabaseInfo.CANDIDATE_COLLECTION); 
 		}catch(Exception e){
 			e.printStackTrace();
+			try {
+				throw new Exception("CANDIDATE SAVE EXCEPTION");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}
 	}
 
@@ -56,6 +62,11 @@ public class CandidateDaoImpl implements CandidateDao,Serializable {
 
 		}catch(Exception e){
 			e.printStackTrace();
+			try {
+				throw new Exception("CANDIDATE CHECK EMAIL EXCEPTION");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}
 		return candidate;
 	}
@@ -81,7 +92,75 @@ public class CandidateDaoImpl implements CandidateDao,Serializable {
 			}
 		}catch(Exception e){
 			e.printStackTrace();
+			try {
+				throw new Exception("CANDIDATE CHECK MOBILE EXCEPTION");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
 		}
 		return candidate;
 	}
+
+
+	@Override
+	public Candidate find(String candidateId) {
+		Candidate candidate = null;
+		try{	
+			Query query = new Query();
+			query.addCriteria(Criteria.where("candidateId").is(candidateId));
+			candidate = mongoTemplate.findOne(query,Candidate.class,DatabaseInfo.CANDIDATE_COLLECTION);
+		}catch(Exception e){
+			e.printStackTrace();
+			try {
+				throw new Exception("CANDIDATE FIND EXCEPTION");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+		return candidate;
+	}
+
+
+
+	@Override
+	public void updateCandidate(Candidate candidate) {
+		try{
+			mongoTemplate.save(candidate,DatabaseInfo.CANDIDATE_COLLECTION);
+		}catch(Exception e){
+			e.printStackTrace();
+			try {
+				throw new Exception("CANDIDATE UPDATE EXCEPTION");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
+
+
+	@Override
+	public List<Candidate> list(boolean isAdmin,String employeeId) {
+		List<Candidate> candidateList = null;
+		try{
+			if(isAdmin){
+				candidateList = mongoTemplate.findAll(Candidate.class,DatabaseInfo.CANDIDATE_COLLECTION);
+			}else{
+				Criteria criteria = new Criteria();
+				criteria.orOperator(Criteria.where("createdBy.employeeId").is(employeeId),Criteria.where("createdBy.supervisorId").is(employeeId));
+				Query query = new Query(criteria);
+				candidateList = mongoTemplate.find(query,Candidate.class,DatabaseInfo.CANDIDATE_COLLECTION);
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			try {
+				throw new Exception("CANDIDATE LIST EXCEPTION");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+		return candidateList;
+	}
+
+
+
+
 }
