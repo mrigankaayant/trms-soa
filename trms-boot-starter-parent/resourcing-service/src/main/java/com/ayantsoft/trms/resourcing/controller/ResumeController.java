@@ -93,7 +93,9 @@ public class ResumeController implements Serializable {
 	public ResponseEntity<?> downloadFilebyID(@PathVariable("fileName")String fileName) throws IOException {
 		HttpStatus httpStatus = null;
 		InputStreamResource in = null;
+		System.out.println("Enter Download Resume");
 		try{
+			System.out.println("Enter Download Resume");
 			in = resumeService.downResume(fileName);
 			if(in == null){
 				httpStatus = HttpStatus.NO_CONTENT;

@@ -15,5 +15,8 @@ public class URLInfo {
 	public static final String UPLOAD_RESUME = "/upload/resume/{candidateId}/{candidateName}";
 	public static final String DOWNLOAD_RESUME = "/download/resume/{fileName}";
 	public static final String CANDIDATE_LIST = "/candidate/list";
+	
+	public static final String CANDIDATE_LAZY_LIST = "/candidate/lazy/list";
+	public static final String CANDIDATE_STATUS_LIST = "/candidatestatus/list";
 
 }

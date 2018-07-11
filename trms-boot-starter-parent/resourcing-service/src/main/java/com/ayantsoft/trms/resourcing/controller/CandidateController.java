@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.ayantsoft.trms.resourcing.dto.CandidateDto;
 import com.ayantsoft.trms.resourcing.info.URLInfo;
+import com.ayantsoft.trms.resourcing.lazy.model.LazyCandidateDto;
+import com.ayantsoft.trms.resourcing.lazy.model.LazyLoadEvent;
 import com.ayantsoft.trms.resourcing.model.Candidate;
 import com.ayantsoft.trms.resourcing.model.CreatedBy;
 import com.ayantsoft.trms.resourcing.model.Employee;
@@ -170,7 +172,7 @@ public class CandidateController implements Serializable {
 	
 	
 	
-	@GetMapping(URLInfo.CANDIDATE_LIST)
+	/*@GetMapping(URLInfo.CANDIDATE_LIST)
 	@PreAuthorize("hasAuthority('TRMSRES_CANDIDATE_LIST')")
 	public ResponseEntity<?> candidateList(HttpServletRequest request){
 		HttpStatus httpStatus = null; 
@@ -189,9 +191,25 @@ public class CandidateController implements Serializable {
 			e.printStackTrace();
 		}
 		return new ResponseEntity<List<Candidate>>(list, httpStatus);
+	}*/
+	
+	
+	@PostMapping(URLInfo.CANDIDATE_LAZY_LIST)
+	@PreAuthorize("hasAuthority('TRMSRES_CANDIDATE_LIST')")
+	public ResponseEntity<?> candidateList(@RequestBody LazyLoadEvent lazyLoadEvent,HttpServletRequest request){
+		
+		HttpStatus httpStatus = null;
+		LazyCandidateDto lazyCandidateDto = null;
+		try{
+			Employee employee = employeeService.getEmployeeByUsername(request, request.getUserPrincipal().getName());
+			lazyCandidateDto = candidateService.list(lazyLoadEvent,employee.getEmployeeId());
+			httpStatus = HttpStatus.OK;
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		return new ResponseEntity<LazyCandidateDto>(lazyCandidateDto,httpStatus);
 	}
 
-	
 	
 	
 	public boolean isRole(String role,String[] roles){

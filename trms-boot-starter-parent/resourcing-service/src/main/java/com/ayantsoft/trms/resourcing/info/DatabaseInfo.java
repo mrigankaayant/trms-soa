@@ -14,6 +14,7 @@ public class DatabaseInfo {
 	public static final String RECRUITMENT_SOURCE_COLLECTION = "recruitment_source";
 	public static final String PAYTYPE_COLLECTION = "pay_type";
 	public static final String DOUMENTS_COLLECTION = "documents";
+	public static final String CANDIDATE_STATUS = "candidate_status";
 	
 
 }

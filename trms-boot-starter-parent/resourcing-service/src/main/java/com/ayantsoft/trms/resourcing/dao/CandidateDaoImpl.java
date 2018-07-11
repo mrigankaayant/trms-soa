@@ -1,15 +1,25 @@
 package com.ayantsoft.trms.resourcing.dao;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.domain.Sort.Order;
 
 import com.ayantsoft.trms.resourcing.info.DatabaseInfo;
+import com.ayantsoft.trms.resourcing.lazy.model.LazyCandidateDto;
+import com.ayantsoft.trms.resourcing.lazy.model.LazyLoadEvent;
 import com.ayantsoft.trms.resourcing.model.Candidate;
 
 @Repository
@@ -121,7 +131,6 @@ public class CandidateDaoImpl implements CandidateDao,Serializable {
 	}
 
 
-
 	@Override
 	public void updateCandidate(Candidate candidate) {
 		try{
@@ -138,17 +147,52 @@ public class CandidateDaoImpl implements CandidateDao,Serializable {
 
 
 	@Override
-	public List<Candidate> list(boolean isAdmin,String employeeId) {
-		List<Candidate> candidateList = null;
+	public LazyCandidateDto list(LazyLoadEvent lazyLoadEvent,String employeeId) {
+		LazyCandidateDto lazyCandidateDto = null;
 		try{
-			if(isAdmin){
-				candidateList = mongoTemplate.findAll(Candidate.class,DatabaseInfo.CANDIDATE_COLLECTION);
-			}else{
-				Criteria criteria = new Criteria();
-				criteria.orOperator(Criteria.where("createdBy.employeeId").is(employeeId),Criteria.where("createdBy.supervisorId").is(employeeId));
-				Query query = new Query(criteria);
-				candidateList = mongoTemplate.find(query,Candidate.class,DatabaseInfo.CANDIDATE_COLLECTION);
+			Criteria criteria = new Criteria();
+			Criteria c1 = criteria.orOperator(Criteria.where("createdBy.employeeId").is(employeeId),
+					      Criteria.where("createdBy.supervisorId").is(employeeId));
+
+			if(lazyLoadEvent.getFilters() != null){
+				List<Criteria> criteriaList = new ArrayList<Criteria>();
+				criteriaList.add(c1);
+				lazyLoadEvent.getFilters().forEach((k,v)->{
+					
+					if(k.equals("nextFollowupDate")){
+						
+						System.out.println("#######  "+(String)v.getValue());
+
+						/*Criteria c = Criteria.where(k).is((Date)v.getValue());
+						if(c != null){
+							criteriaList.add(c);
+						}*/
+					}else{
+						Criteria c = Criteria.where(k).regex((String)v.getValue());
+						if(c != null){
+							criteriaList.add(c);
+						}
+					}
+				});
+
+				Criteria[] arr = new Criteria[criteriaList.size()];
+				arr = criteriaList.toArray(arr);
+				criteria.andOperator(arr);
 			}
+			Query query = new Query(criteria);
+
+			if(lazyLoadEvent.getSortField() != null){
+				if(lazyLoadEvent.getSortOrder() == 1){
+					query.with(new Sort(Direction.ASC,lazyLoadEvent.getSortField()));
+				}else if(lazyLoadEvent.getSortOrder() == -1){
+					query.with(new Sort(Direction.DESC,lazyLoadEvent.getSortField()));
+				}
+			}
+			PageRequest pageRequest = PageRequest.of(lazyLoadEvent.getFirst()/lazyLoadEvent.getRows(),lazyLoadEvent.getRows());
+			query.with(pageRequest);
+			long totalData = mongoTemplate.count(query,DatabaseInfo.CANDIDATE_COLLECTION);
+			List<Candidate> candidateList = mongoTemplate.find(query,Candidate.class,DatabaseInfo.CANDIDATE_COLLECTION);
+			lazyCandidateDto = new LazyCandidateDto(candidateList,totalData,pageRequest.getPageNumber()); 
 		}catch(Exception e){
 			e.printStackTrace();
 			try {
@@ -157,10 +201,7 @@ public class CandidateDaoImpl implements CandidateDao,Serializable {
 				e1.printStackTrace();
 			}
 		}
-		return candidateList;
+		return lazyCandidateDto;
 	}
-
-
-
 
 }
