@@ -4,6 +4,7 @@ import com.ayantsoft.trms.resourcing.model.Documents;
 
 public interface DocumentDao {
 	
-	public void save(Documents documents);
-
+	void save(Documents documents);
+	Documents find(String fileName);
+	void delete(Documents documents);
 }

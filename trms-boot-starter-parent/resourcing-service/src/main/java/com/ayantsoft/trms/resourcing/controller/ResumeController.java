@@ -40,7 +40,7 @@ public class ResumeController implements Serializable {
 
 	@Autowired
 	private DocumentService documentService;
-	
+
 	@Autowired
 	private CandidateService candidateService;
 
@@ -48,7 +48,7 @@ public class ResumeController implements Serializable {
 	@PostMapping(URLInfo.UPLOAD_RESUME)
 	@PreAuthorize("hasAuthority('TRMSRES_CANDIDATE_CREATE')")
 	public ResponseEntity<?> uploadResume(@RequestParam("file") MultipartFile file,@PathVariable String candidateId,@PathVariable String candidateName){
-			
+
 		HttpStatus httpStatus = null;
 		String filename = candidateName+"_"+candidateId;
 		try{
@@ -68,16 +68,16 @@ public class ResumeController implements Serializable {
 			document.setFileName(filename);
 
 			documentService.save(document);
-			
+
 			Candidate candidate = candidateService.findCandidateById(candidateId);
-			
+
 			ResumeInfo resumeInfo = new ResumeInfo();
 			resumeInfo.setDocumentId(document.getDocumentId());
 			resumeInfo.setDocumentName(document.getDocumentName());
 			resumeInfo.setFileName(document.getFileName());
-			
+
 			candidate.setResumeInfo(resumeInfo);
-			
+
 			candidateService.updateCandidate(candidate); 
 			httpStatus = HttpStatus.OK;
 		}catch(Exception e){
@@ -110,4 +110,52 @@ public class ResumeController implements Serializable {
 	}
 
 
+
+	@PostMapping(URLInfo.UPDATE_RESUME)
+	@PreAuthorize("hasAuthority('TRMSRES_CANDIDATE_CREATE')")
+	public ResponseEntity<?> updateResume(@RequestParam("file") MultipartFile file,@PathVariable String candidateId,@PathVariable String candidateName){
+
+		HttpStatus httpStatus = null;
+		String filename = candidateName+"_"+candidateId;
+		Candidate candidate = null;
+		try{
+			candidate = candidateService.findCandidateById(candidateId);
+			if(candidate.getResumeInfo() != null){
+				resumeService.deleteResule(candidate.getResumeInfo().getFileName());
+				Documents documents = documentService.find(candidate.getResumeInfo().getFileName());
+				documentService.delete(documents);
+			}
+
+			if(file != null){
+				File convFile = new File(file.getOriginalFilename());
+				convFile.createNewFile(); 
+				FileOutputStream fos = new FileOutputStream(convFile); 
+				fos.write(file.getBytes());
+				fos.close(); 
+				resumeService.uploadResume(candidateName+"_"+candidateId,convFile,file.getContentType());
+			}
+
+			Documents document = new Documents();
+			document.setCandidateId(candidateId);
+			document.setCandidateName(candidateName);
+			document.setDocumentName("resume");
+			document.setFileName(filename);
+
+			documentService.save(document);
+
+			ResumeInfo resumeInfo = new ResumeInfo();
+			resumeInfo.setDocumentId(document.getDocumentId());
+			resumeInfo.setDocumentName(document.getDocumentName());
+			resumeInfo.setFileName(document.getFileName());
+
+			candidate.setResumeInfo(resumeInfo);
+
+			candidateService.updateCandidate(candidate); 
+			httpStatus = HttpStatus.OK;
+		}catch(Exception e){
+			e.printStackTrace();
+			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<Candidate>(candidate,httpStatus);
+	}
 }

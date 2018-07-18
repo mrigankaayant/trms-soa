@@ -23,7 +23,7 @@ public class CandidateStatusDaoImpl implements Serializable,CandidateStatusDao {
 	public List<CandidateStatus> list() {
 		List<CandidateStatus> list = null;
 		try{
-			list = mongoTemplate.findAll(CandidateStatus.class,DatabaseInfo.CANDIDATE_STATUS);
+			list = mongoTemplate.findAll(CandidateStatus.class,DatabaseInfo.CANDIDATE_STATUS_COLLECTION);
 		}catch(Exception e){
 			e.printStackTrace();
 			try{

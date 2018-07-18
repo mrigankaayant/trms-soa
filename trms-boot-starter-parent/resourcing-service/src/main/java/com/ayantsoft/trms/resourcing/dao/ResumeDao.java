@@ -8,4 +8,5 @@ public interface ResumeDao {
 	
 	void uploadResume(String fileName, File file, String contentType);
 	InputStreamResource downResume(String fileName);
+	void deleteResule(String fileName);
 }

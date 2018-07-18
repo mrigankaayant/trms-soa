@@ -2,11 +2,9 @@ package com.ayantsoft.trms.resourcing.service;
 
 import java.io.File;
 import java.io.Serializable;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
-
 import com.ayantsoft.trms.resourcing.dao.ResumeDao;
 
 @Service
@@ -28,5 +26,10 @@ public class ResumeServiceImpl implements Serializable,ResumeService {
 	@Override
 	public InputStreamResource downResume(String fileName) {
 		return resumeDao.downResume(fileName);
+	}
+
+	@Override
+	public void deleteResule(String fileName) {
+		resumeDao.deleteResule(fileName); 
 	}
 }

@@ -71,5 +71,31 @@ public class ResumeDaoImpl implements ResumeDao,Serializable {
 			}
 		}
 		return in;
+	}
+
+
+	@Override
+	public void deleteResule(String fileName) {
+		try{
+			DB db = mongoDbFactory.getLegacyDb();
+			GridFS gridFS = new GridFS(db,"upload_resume"); 
+			GridFSDBFile gridFSDBFile = gridFS.findOne(fileName);
+
+			if(gridFSDBFile != null){
+				if(gridFSDBFile.getChunkSize() > 0){
+					List<GridFSDBFile> fileList = gridFS.find(fileName);
+					for (GridFSDBFile f : fileList)
+					{
+						gridFS.remove(f.getFilename());
+					}
+				}
+			}
+		}catch(Exception e){
+			try {
+				throw new Exception("DELETE RESUME EXCEPTION");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
 	}	
 }

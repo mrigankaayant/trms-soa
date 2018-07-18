@@ -2,21 +2,22 @@ package com.ayantsoft.trms.resourcing.dao;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.regex.Pattern;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.querydsl.QPageRequest;
 import org.springframework.stereotype.Repository;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.domain.Sort.Order;
 
+import com.ayantsoft.trms.resourcing.dto.SearchDto;
 import com.ayantsoft.trms.resourcing.info.DatabaseInfo;
 import com.ayantsoft.trms.resourcing.lazy.model.LazyCandidateDto;
 import com.ayantsoft.trms.resourcing.lazy.model.LazyLoadEvent;
@@ -113,7 +114,7 @@ public class CandidateDaoImpl implements CandidateDao,Serializable {
 
 
 	@Override
-	public Candidate find(String candidateId) {
+	public Candidate findById(String candidateId) {
 		Candidate candidate = null;
 		try{	
 			Query query = new Query();
@@ -152,15 +153,15 @@ public class CandidateDaoImpl implements CandidateDao,Serializable {
 		try{
 			Criteria criteria = new Criteria();
 			Criteria c1 = criteria.orOperator(Criteria.where("createdBy.employeeId").is(employeeId),
-					      Criteria.where("createdBy.supervisorId").is(employeeId));
+					Criteria.where("createdBy.supervisorId").is(employeeId));
 
 			if(lazyLoadEvent.getFilters() != null){
 				List<Criteria> criteriaList = new ArrayList<Criteria>();
 				criteriaList.add(c1);
 				lazyLoadEvent.getFilters().forEach((k,v)->{
-					
+
 					if(k.equals("nextFollowupDate")){
-						
+
 						System.out.println("#######  "+(String)v.getValue());
 
 						/*Criteria c = Criteria.where(k).is((Date)v.getValue());
@@ -168,7 +169,7 @@ public class CandidateDaoImpl implements CandidateDao,Serializable {
 							criteriaList.add(c);
 						}*/
 					}else{
-						Criteria c = Criteria.where(k).regex((String)v.getValue());
+						Criteria c = Criteria.where(k).regex(Pattern.compile((String)v.getValue(), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
 						if(c != null){
 							criteriaList.add(c);
 						}
@@ -204,4 +205,73 @@ public class CandidateDaoImpl implements CandidateDao,Serializable {
 		return lazyCandidateDto;
 	}
 
+
+	@Override
+	public Candidate searchCandidate(SearchDto searchDto) {
+		Candidate candidate = null;
+		try{
+			
+			Map<String,String> map = new HashMap<String,String>(); 
+			List<Criteria> criteriaList = null;
+			try{
+				String candidateId = BeanUtils.getProperty(searchDto,"candidateId");
+				String candidateName = BeanUtils.getProperty(searchDto,"candidateName");
+				String email = BeanUtils.getProperty(searchDto,"email");
+				String altEmail = BeanUtils.getProperty(searchDto,"altEmail");
+				String workMobile = BeanUtils.getProperty(searchDto,"workMobile");
+				String phone = BeanUtils.getProperty(searchDto,"phone");
+
+				if(candidateId != null){
+					map.put("candidateId",candidateId);
+				}
+				if(candidateName != null){
+					map.put("candidateName",candidateName);
+				}
+				if(email != null){
+					map.put("email",email);
+				}
+				if(altEmail != null){
+					map.put("altEmail",altEmail);
+				}
+				if(workMobile != null){
+					map.put("workMobile",workMobile);
+				}
+				if(phone != null){
+					map.put("phone",phone);
+				}
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+
+			if(map.size() >0){
+				criteriaList = new ArrayList<Criteria>();
+				for(Map.Entry<String,String> entry:map.entrySet()){
+					Criteria c = Criteria.where(entry.getKey()).is(entry.getValue());
+					criteriaList.add(c);
+				}
+			}
+			
+		    if(criteriaList != null){
+		    	Query query = new Query();
+		    	if(criteriaList.size() == 0){
+					query.addCriteria(criteriaList.get(0));
+		    	}else{
+		            Criteria[] arr = new Criteria[criteriaList.size()];
+		            arr = criteriaList.toArray(arr);
+		    		Criteria cri = new Criteria();
+		    		cri.orOperator(arr);
+		    		query.addCriteria(cri);
+		    	}
+		    	candidate = mongoTemplate.findOne(query,Candidate.class,DatabaseInfo.CANDIDATE_COLLECTION);
+		    }		
+		}catch(Exception e){
+			e.printStackTrace();
+			try {
+				throw new Exception("CANDIDATE SEARCH EXCEPTION");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+		return candidate;
+	}
 }

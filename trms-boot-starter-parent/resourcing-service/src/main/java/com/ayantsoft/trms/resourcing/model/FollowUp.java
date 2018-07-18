@@ -19,10 +19,8 @@ public class FollowUp implements Serializable  {
 	private String followupId;
 	private Date followupDate;	
 	private String followupRemarks;
-	private String recruitmentStatus;
 	private String employeeId;
 	private Date scheduledDate;
-	private String followUpType;
 	private CandidateInfo candidateInfo;
 	
 	
@@ -62,22 +60,10 @@ public class FollowUp implements Serializable  {
 	public void setScheduledDate(Date scheduledDate) {
 		this.scheduledDate = scheduledDate;
 	}
-	public String getFollowUpType() {
-		return followUpType;
-	}
-	public void setFollowUpType(String followUpType) {
-		this.followUpType = followUpType;
-	}
 	public CandidateInfo getCandidateInfo() {
 		return candidateInfo;
 	}
 	public void setCandidateInfo(CandidateInfo candidateInfo) {
 		this.candidateInfo = candidateInfo;
-	}
-	public String getRecruitmentStatus() {
-		return recruitmentStatus;
-	}
-	public void setRecruitmentStatus(String recruitmentStatus) {
-		this.recruitmentStatus = recruitmentStatus;
 	}
 }

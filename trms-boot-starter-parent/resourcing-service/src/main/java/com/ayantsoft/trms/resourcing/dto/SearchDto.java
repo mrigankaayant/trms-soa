@@ -1,20 +1,20 @@
-package com.ayantsoft.trms.resourcing.model;
+package com.ayantsoft.trms.resourcing.dto;
 
 import java.io.Serializable;
 
-public class CandidateInfo implements Serializable {
+public class SearchDto implements Serializable {
 
 	/**
-	 * serialVersionUID
+	 *serialVersionUID 
 	 */
-	private static final long serialVersionUID = 5868066138830080802L;
+	private static final long serialVersionUID = 9103279196107441907L;
 	
 	private String candidateId;
 	private String candidateName;
 	private String email;
+	private String altEmail;
 	private String workMobile;
-	private String candidateStatus;
-	private String recruiterName;
+	private String phone;
 	
 	
 	public String getCandidateId() {
@@ -35,22 +35,22 @@ public class CandidateInfo implements Serializable {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getAltEmail() {
+		return altEmail;
+	}
+	public void setAltEmail(String altEmail) {
+		this.altEmail = altEmail;
+	}
 	public String getWorkMobile() {
 		return workMobile;
 	}
 	public void setWorkMobile(String workMobile) {
 		this.workMobile = workMobile;
 	}
-	public String getRecruiterName() {
-		return recruiterName;
+	public String getPhone() {
+		return phone;
 	}
-	public void setRecruiterName(String recruiterName) {
-		this.recruiterName = recruiterName;
-	}
-	public String getCandidateStatus() {
-		return candidateStatus;
-	}
-	public void setCandidateStatus(String candidateStatus) {
-		this.candidateStatus = candidateStatus;
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 }

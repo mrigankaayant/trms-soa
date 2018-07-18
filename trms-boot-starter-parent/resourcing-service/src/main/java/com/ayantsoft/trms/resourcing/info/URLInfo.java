@@ -14,9 +14,17 @@ public class URLInfo {
 	public static final String CHECK_PHONE = "/checkMobile/{mobile}/{id}";
 	public static final String UPLOAD_RESUME = "/upload/resume/{candidateId}/{candidateName}";
 	public static final String DOWNLOAD_RESUME = "/download/resume/{fileName}";
-	public static final String CANDIDATE_LIST = "/candidate/list";
-	
 	public static final String CANDIDATE_LAZY_LIST = "/candidate/lazy/list";
 	public static final String CANDIDATE_STATUS_LIST = "/candidatestatus/list";
-
+	public static final String CANDIDATE_FIND_BY_ID = "/candidate/find/{id}";
+	public static final String UPDATE_CANDIDATE = "/candidate/update";
+	public static final String UPDATE_RESUME = "/update/resume/{candidateId}/{candidateName}";
+	public static final String FOLLOWUP_LIST = "/followup/list/{candidateId}";
+	public static final String PHONE_LOGS_LIST_BY_EMPLOYEE_ID = "/phonelogs/employee/list/{employeeId}";
+	public static final String PHONE_LOGS_LIST_BY_CANDIDATE_ID = "/phonelogs/candidate/list/{candidateId}";
+	public static final String CREATE_FOLLOWUP = "/followup/create";
+	public static final String FREEPOOL_CANDIDATE_LIST = "/freepool/candidate/list";
+	public static final String FREEPOOL_CANDIDATE_TRANSFER = "/freepool/candidate/transfer/{candidateId}";
+	public static final String SEARCH_CANDIDATE = "/candidate/search";
+	
 }

@@ -1,5 +1,6 @@
 package com.ayantsoft.trms.resourcing.service;
 
+import com.ayantsoft.trms.resourcing.dto.SearchDto;
 import com.ayantsoft.trms.resourcing.lazy.model.LazyCandidateDto;
 import com.ayantsoft.trms.resourcing.lazy.model.LazyLoadEvent;
 import com.ayantsoft.trms.resourcing.model.Candidate;
@@ -11,6 +12,6 @@ public interface CandidateService {
 	Candidate checkEmail(String email, String id);
 	Candidate checkMobile(String phone,String id);
 	void updateCandidate(Candidate candidate);
-	//List<Candidate> list(boolean isAdmin,String employeeId);
 	LazyCandidateDto list(LazyLoadEvent lazyLoadEvent,String employeeId);
+	Candidate searchCandidate(SearchDto searchDto);
 }

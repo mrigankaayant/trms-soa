@@ -4,6 +4,7 @@ import java.io.Serializable;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ayantsoft.trms.resourcing.dao.CandidateDao;
+import com.ayantsoft.trms.resourcing.dto.SearchDto;
 import com.ayantsoft.trms.resourcing.lazy.model.LazyCandidateDto;
 import com.ayantsoft.trms.resourcing.lazy.model.LazyLoadEvent;
 import com.ayantsoft.trms.resourcing.model.Candidate;
@@ -37,7 +38,7 @@ public class CandidateServiceImpl implements CandidateService,Serializable {
 
 	@Override
 	public Candidate findCandidateById(String candidateId) {
-		return candidateDao.find(candidateId);
+		return candidateDao.findById(candidateId);
 	}
 
 	@Override
@@ -46,13 +47,13 @@ public class CandidateServiceImpl implements CandidateService,Serializable {
 
 	}
 
-	/*@Override
-	public List<Candidate> list(boolean isAdmin, String employeeId) {
-		return candidateDao.list(isAdmin, employeeId); 
-	}*/
-
 	@Override
 	public LazyCandidateDto list(LazyLoadEvent lazyLoadEvent,String employeeId) {
 		return candidateDao.list(lazyLoadEvent,employeeId);
+	}
+
+	@Override
+	public Candidate searchCandidate(SearchDto searchDto) {
+		return candidateDao.searchCandidate(searchDto);
 	}
 }
