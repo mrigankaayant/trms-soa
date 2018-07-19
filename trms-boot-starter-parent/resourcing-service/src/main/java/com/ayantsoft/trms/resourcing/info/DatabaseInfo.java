@@ -17,6 +17,7 @@ public class DatabaseInfo {
 	public static final String FOLLOWUP_COLLECTION = "follow_up";
 	public static final String MAX_FOLLOWUP_COLLECTION = "max_followup";
 	public static final String PHONE_LOGS_COLLECTION = "phone_logs";
+	public static final String INCENTIVE_STRUCTURE_COLLECTION = "incentive_structure";
 	
 
 }

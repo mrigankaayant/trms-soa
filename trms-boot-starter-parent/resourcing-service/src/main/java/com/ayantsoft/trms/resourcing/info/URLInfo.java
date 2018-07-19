@@ -26,5 +26,6 @@ public class URLInfo {
 	public static final String FREEPOOL_CANDIDATE_LIST = "/freepool/candidate/list";
 	public static final String FREEPOOL_CANDIDATE_TRANSFER = "/freepool/candidate/transfer/{candidateId}";
 	public static final String SEARCH_CANDIDATE = "/candidate/search";
+	public static final String INCENTIVE_LIST = "/incentive/list/{incentiveFor}";
 	
 }
