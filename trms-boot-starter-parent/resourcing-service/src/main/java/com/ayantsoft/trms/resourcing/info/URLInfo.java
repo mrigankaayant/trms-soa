@@ -20,12 +20,13 @@ public class URLInfo {
 	public static final String UPDATE_CANDIDATE = "/candidate/update";
 	public static final String UPDATE_RESUME = "/update/resume/{candidateId}/{candidateName}";
 	public static final String FOLLOWUP_LIST = "/followup/list/{candidateId}";
-	public static final String PHONE_LOGS_LIST_BY_EMPLOYEE_ID = "/phonelogs/employee/list/{employeeId}";
-	public static final String PHONE_LOGS_LIST_BY_CANDIDATE_ID = "/phonelogs/candidate/list/{candidateId}";
+	public static final String PHONE_LOGS_LIST_BY_EMPLOYEE_ID = "/phonelogs/list";
+	public static final String PHONE_LOGS_LIST_BY_CANDIDATE_ID = "/phonelogs/list/{candidateId}";
 	public static final String CREATE_FOLLOWUP = "/followup/create";
 	public static final String FREEPOOL_CANDIDATE_LIST = "/freepool/candidate/list";
 	public static final String FREEPOOL_CANDIDATE_TRANSFER = "/freepool/candidate/transfer/{candidateId}";
 	public static final String SEARCH_CANDIDATE = "/candidate/search";
 	public static final String INCENTIVE_LIST = "/incentive/list/{incentiveFor}";
+	public static final String ORGANIZATION_LIST = "/organization";
 	
 }
