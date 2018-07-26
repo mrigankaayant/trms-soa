@@ -56,4 +56,9 @@ public class CandidateServiceImpl implements CandidateService,Serializable {
 	public Candidate searchCandidate(SearchDto searchDto) {
 		return candidateDao.searchCandidate(searchDto);
 	}
+
+	@Override
+	public LazyCandidateDto list(LazyLoadEvent lazyLoadEvent) {
+		return candidateDao.list(lazyLoadEvent);
+	}
 }

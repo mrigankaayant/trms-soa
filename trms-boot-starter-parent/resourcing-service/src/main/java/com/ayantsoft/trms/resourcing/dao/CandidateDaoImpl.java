@@ -210,7 +210,7 @@ public class CandidateDaoImpl implements CandidateDao,Serializable {
 	public Candidate searchCandidate(SearchDto searchDto) {
 		Candidate candidate = null;
 		try{
-			
+
 			Map<String,String> map = new HashMap<String,String>(); 
 			List<Criteria> criteriaList = null;
 			try{
@@ -250,20 +250,20 @@ public class CandidateDaoImpl implements CandidateDao,Serializable {
 					criteriaList.add(c);
 				}
 			}
-			
-		    if(criteriaList != null){
-		    	Query query = new Query();
-		    	if(criteriaList.size() == 0){
+
+			if(criteriaList != null){
+				Query query = new Query();
+				if(criteriaList.size() == 0){
 					query.addCriteria(criteriaList.get(0));
-		    	}else{
-		            Criteria[] arr = new Criteria[criteriaList.size()];
-		            arr = criteriaList.toArray(arr);
-		    		Criteria cri = new Criteria();
-		    		cri.orOperator(arr);
-		    		query.addCriteria(cri);
-		    	}
-		    	candidate = mongoTemplate.findOne(query,Candidate.class,DatabaseInfo.CANDIDATE_COLLECTION);
-		    }		
+				}else{
+					Criteria[] arr = new Criteria[criteriaList.size()];
+					arr = criteriaList.toArray(arr);
+					Criteria cri = new Criteria();
+					cri.orOperator(arr);
+					query.addCriteria(cri);
+				}
+				candidate = mongoTemplate.findOne(query,Candidate.class,DatabaseInfo.CANDIDATE_COLLECTION);
+			}		
 		}catch(Exception e){
 			e.printStackTrace();
 			try {
@@ -273,5 +273,70 @@ public class CandidateDaoImpl implements CandidateDao,Serializable {
 			}
 		}
 		return candidate;
+	}
+
+
+	@Override
+	public LazyCandidateDto list(LazyLoadEvent lazyLoadEvent) {
+		LazyCandidateDto lazyCandidateDto = null;
+		try{
+			Criteria criteria = new Criteria();
+			Query query = null;
+
+			if(lazyLoadEvent.getFilters() != null){
+				List<Criteria> criteriaList = new ArrayList<Criteria>();
+				lazyLoadEvent.getFilters().forEach((k,v)->{
+
+					if(k.equals("nextFollowupDate")){
+
+						System.out.println("#######  "+(String)v.getValue());
+
+						/*Criteria c = Criteria.where(k).is((Date)v.getValue());
+						if(c != null){
+							criteriaList.add(c);
+						}*/
+					}else{
+						Criteria c = Criteria.where(k).regex(Pattern.compile((String)v.getValue(), Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE));
+						if(c != null){
+							criteriaList.add(c);
+						}
+					}
+				});
+
+				if(criteriaList.size() >0){
+					Criteria[] arr = new Criteria[criteriaList.size()];
+					arr = criteriaList.toArray(arr);
+					criteria.andOperator(arr);
+				}
+			}
+
+			if(lazyLoadEvent.getFilters() != null){
+				query = new Query(criteria);
+			}else{
+				query = new Query();
+			}
+
+
+			if(lazyLoadEvent.getSortField() != null){
+				if(lazyLoadEvent.getSortOrder() == 1){
+					query.with(new Sort(Direction.ASC,lazyLoadEvent.getSortField()));
+				}else if(lazyLoadEvent.getSortOrder() == -1){
+					query.with(new Sort(Direction.DESC,lazyLoadEvent.getSortField()));
+				}
+			}
+			PageRequest pageRequest = PageRequest.of(lazyLoadEvent.getFirst()/lazyLoadEvent.getRows(),lazyLoadEvent.getRows());
+			query.with(pageRequest);
+			long totalData = mongoTemplate.count(query,DatabaseInfo.CANDIDATE_COLLECTION);
+			List<Candidate> candidateList = mongoTemplate.find(query,Candidate.class,DatabaseInfo.CANDIDATE_COLLECTION);
+			lazyCandidateDto = new LazyCandidateDto(candidateList,totalData,pageRequest.getPageNumber()); 
+		}catch(Exception e){
+			e.printStackTrace();
+			try {
+				throw new Exception("CANDIDATE LIST EXCEPTION");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+		return lazyCandidateDto;
 	}
 }

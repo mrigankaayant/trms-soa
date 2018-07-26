@@ -28,5 +28,6 @@ public class URLInfo {
 	public static final String SEARCH_CANDIDATE = "/candidate/search";
 	public static final String INCENTIVE_LIST = "/incentive/list/{incentiveFor}";
 	public static final String ORGANIZATION_LIST = "/organization";
+	public static final String ALL_CANDIDATE_LAZY_LIST = "/all/candidate/lazy/list";
 	
 }

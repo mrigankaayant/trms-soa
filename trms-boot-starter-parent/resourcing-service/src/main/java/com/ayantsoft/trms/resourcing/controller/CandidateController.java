@@ -466,7 +466,7 @@ public class CandidateController implements Serializable {
 		return new ResponseEntity<Candidate>(candidate,httpStatus);
 	}
 
-	
+
 
 	@PostMapping(URLInfo.SEARCH_CANDIDATE)
 	@PreAuthorize("hasAuthority('TRMSRES_CANDIDATE_SEARCH')")
@@ -489,6 +489,27 @@ public class CandidateController implements Serializable {
 	}
 
 
+	@PostMapping(URLInfo.ALL_CANDIDATE_LAZY_LIST)
+	@PreAuthorize("hasAuthority('TRMSRES_CANDIDATE_LIST')")
+	public ResponseEntity<?> candidateList(@RequestBody LazyLoadEvent lazyLoadEvent){
+
+		HttpStatus httpStatus = null;
+		LazyCandidateDto lazyCandidateDto = null;
+		try{
+			lazyCandidateDto = candidateService.list(lazyLoadEvent);
+			if(lazyCandidateDto == null){
+				httpStatus = HttpStatus.NO_CONTENT;
+			}else{
+				httpStatus = HttpStatus.OK;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<LazyCandidateDto>(lazyCandidateDto,httpStatus);
+	}
+
+
 	public boolean isRole(String role,String[] roles){
 		boolean hasRole = false;
 		try{
@@ -503,6 +524,6 @@ public class CandidateController implements Serializable {
 		}
 		return hasRole;
 	}
-	
-	
+
+
 }

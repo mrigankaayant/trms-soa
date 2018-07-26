@@ -14,4 +14,5 @@ public interface CandidateDao {
 	void updateCandidate(Candidate candidate);
 	LazyCandidateDto list(LazyLoadEvent lazyLoadEvent,String employeeId);
 	Candidate searchCandidate(SearchDto searchDto);
+	LazyCandidateDto list(LazyLoadEvent lazyLoadEvent);
 }
