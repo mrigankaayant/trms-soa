@@ -339,4 +339,23 @@ public class CandidateDaoImpl implements CandidateDao,Serializable {
 		}
 		return lazyCandidateDto;
 	}
+
+
+	@Override
+	public List<Candidate> findCandidateByProperty(String propertyName,String propertyValue) {
+		List<Candidate> list = null;
+		try{	
+			Query query = new Query();
+			query.addCriteria(Criteria.where(propertyName).is(propertyValue));
+			list = mongoTemplate.find(query,Candidate.class,DatabaseInfo.CANDIDATE_COLLECTION);
+		}catch(Exception e){
+			e.printStackTrace();
+			try {
+				throw new Exception("CANDIDATE FIND BY PROPERTY NAME EXCEPTION");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+		return list;
+	}
 }

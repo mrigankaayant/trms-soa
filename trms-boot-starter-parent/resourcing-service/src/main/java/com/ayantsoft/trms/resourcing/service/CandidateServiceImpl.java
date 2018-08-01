@@ -1,6 +1,8 @@
 package com.ayantsoft.trms.resourcing.service;
 
 import java.io.Serializable;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ayantsoft.trms.resourcing.dao.CandidateDao;
@@ -60,5 +62,10 @@ public class CandidateServiceImpl implements CandidateService,Serializable {
 	@Override
 	public LazyCandidateDto list(LazyLoadEvent lazyLoadEvent) {
 		return candidateDao.list(lazyLoadEvent);
+	}
+
+	@Override
+	public List<Candidate> findCandidateByProperty(String propertyName,String propertyValue) {
+		return candidateDao.findCandidateByProperty(propertyName,propertyValue); 
 	}
 }

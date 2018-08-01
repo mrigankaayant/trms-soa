@@ -7,5 +7,6 @@ public class DatabaseInfo {
 	public static final int PORT = 27017;
 	
 	public static final String PAYMENT_DETAILS_COLLECTION = "payment_details";
+	public static final String DOUMENTS_COLLECTION = "documents";
 	
 }

@@ -5,6 +5,8 @@ import java.util.Base64;
 import java.util.Calendar;
 import java.util.Base64.Decoder;
 import java.util.Date;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -507,6 +509,36 @@ public class CandidateController implements Serializable {
 			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
 		return new ResponseEntity<LazyCandidateDto>(lazyCandidateDto,httpStatus);
+	}
+	
+	
+	@GetMapping(URLInfo.CANDIDATE_FIND_BY_PROPERTY)
+	@PreAuthorize("hasAuthority('TRMSRES_CANDIDATE_READ')")
+	public ResponseEntity<?> findCandidateByEmail(@PathVariable("propertyName") String propertyName,@PathVariable("propertyValue") String propertyValue){
+		
+		HttpStatus httpStatus = null;
+		List<Candidate> list = null;
+		String val = null;
+		
+		try {
+			Decoder decoder = Base64.getDecoder();
+			byte[] b = decoder.decode(propertyValue);
+			val = new String(b); 
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		try{
+			list = candidateService.findCandidateByProperty(propertyName,val);
+			if(list == null || list.isEmpty()){
+				httpStatus = HttpStatus.NO_CONTENT;
+			}else{
+				httpStatus = HttpStatus.OK;
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
+		}
+		return new ResponseEntity<List<Candidate>>(list,httpStatus);
 	}
 
 

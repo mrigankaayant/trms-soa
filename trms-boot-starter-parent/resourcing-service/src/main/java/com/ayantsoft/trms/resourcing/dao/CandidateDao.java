@@ -1,5 +1,7 @@
 package com.ayantsoft.trms.resourcing.dao;
 
+import java.util.List;
+
 import com.ayantsoft.trms.resourcing.dto.SearchDto;
 import com.ayantsoft.trms.resourcing.lazy.model.LazyCandidateDto;
 import com.ayantsoft.trms.resourcing.lazy.model.LazyLoadEvent;
@@ -15,4 +17,5 @@ public interface CandidateDao {
 	LazyCandidateDto list(LazyLoadEvent lazyLoadEvent,String employeeId);
 	Candidate searchCandidate(SearchDto searchDto);
 	LazyCandidateDto list(LazyLoadEvent lazyLoadEvent);
+	List<Candidate> findCandidateByProperty(String propertyName,String propertyValue);
 }

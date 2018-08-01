@@ -78,4 +78,38 @@ public class PaymentDaoImpl implements Serializable,PaymentDao {
 		return lazyPaymentDto;
 	}
 
+
+	@Override
+	public PaymentDetails findById(String paymentId) {
+		PaymentDetails paymentDetails = null;
+		try{	
+			Query query = new Query();
+			query.addCriteria(Criteria.where("paymentDetailsId").is(paymentId));
+			paymentDetails = mongoTemplate.findOne(query,PaymentDetails.class,DatabaseInfo.PAYMENT_DETAILS_COLLECTION);
+		}catch(Exception e){
+			e.printStackTrace();
+			try {
+				throw new Exception("PAYMENT DETAILS FIND EXCEPTION");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+		return paymentDetails;
+	}
+
+
+	
+	@Override
+	public void update(PaymentDetails paymentDetails) {
+		try{
+			mongoTemplate.save(paymentDetails,DatabaseInfo.PAYMENT_DETAILS_COLLECTION);
+		}catch(Exception e){
+			e.printStackTrace();
+			try {
+				throw new Exception("PAYMENT DETAILS UPDATE EXCEPTION");
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+		}
+	}
 }

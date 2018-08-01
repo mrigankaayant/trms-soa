@@ -6,8 +6,6 @@ public class VerifiedBy {
     private String name;
     private String workPhone;
     private String emailId;
-    private String supervisorId;
-    
     
 	public String getEmployeeId() {
 		return employeeId;
@@ -33,10 +31,4 @@ public class VerifiedBy {
 	public void setEmailId(String emailId) {
 		this.emailId = emailId;
 	}
-	public String getSupervisorId() {
-		return supervisorId;
-	}
-	public void setSupervisorId(String supervisorId) {
-		this.supervisorId = supervisorId;
-	} 
 }

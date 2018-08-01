@@ -29,5 +29,5 @@ public class URLInfo {
 	public static final String INCENTIVE_LIST = "/incentive/list/{incentiveFor}";
 	public static final String ORGANIZATION_LIST = "/organization";
 	public static final String ALL_CANDIDATE_LAZY_LIST = "/all/candidate/lazy/list";
-	
+	public static final String CANDIDATE_FIND_BY_PROPERTY = "/candidate/accountverify/{propertyName}/{propertyValue:.+}";
 }

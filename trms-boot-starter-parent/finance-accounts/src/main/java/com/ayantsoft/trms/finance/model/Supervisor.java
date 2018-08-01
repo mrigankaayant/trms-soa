@@ -2,47 +2,18 @@ package com.ayantsoft.trms.finance.model;
 
 import java.io.Serializable;
 
-public class CreatedBy implements Serializable {
-
+public class Supervisor implements Serializable {
 	/**
 	 *serialVersionUID 
 	 */
-	private static final long serialVersionUID = -6767353052967555534L;
-	
-	private String employeeId;
-	private String employeeName;
-	private String employeeEmail;
-	private String employeePhone;
+	private static final long serialVersionUID = 4353424372713822835L;
 	
 	private String supervisorId;
 	private String supervisorName;
 	private String supervisorEmail;
 	private String supervisorPhone;
 	
-	public String getEmployeeId() {
-		return employeeId;
-	}
-	public void setEmployeeId(String employeeId) {
-		this.employeeId = employeeId;
-	}
-	public String getEmployeeName() {
-		return employeeName;
-	}
-	public void setEmployeeName(String employeeName) {
-		this.employeeName = employeeName;
-	}
-	public String getEmployeeEmail() {
-		return employeeEmail;
-	}
-	public void setEmployeeEmail(String employeeEmail) {
-		this.employeeEmail = employeeEmail;
-	}
-	public String getEmployeePhone() {
-		return employeePhone;
-	}
-	public void setEmployeePhone(String employeePhone) {
-		this.employeePhone = employeePhone;
-	}
+	
 	public String getSupervisorId() {
 		return supervisorId;
 	}

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.ayantsoft.trms.finance.dao.PaymentDao;
 import com.ayantsoft.trms.finance.dto.LazyPaymentDto;
 import com.ayantsoft.trms.finance.lazy.model.LazyLoadEvent;
+import com.ayantsoft.trms.finance.model.PaymentDetails;
 
 @Service
 public class PaymentServiceImpl implements Serializable,PaymentService {
@@ -25,4 +26,15 @@ public class PaymentServiceImpl implements Serializable,PaymentService {
 		return paymentDao.list(lazyLoadEvent,status);
 	}
 
+
+	@Override
+	public PaymentDetails findById(String paymentId) {
+		return paymentDao.findById(paymentId);
+	}
+
+
+	@Override
+	public void update(PaymentDetails paymentDetails) {
+		paymentDao.update(paymentDetails);
+	}
 }
